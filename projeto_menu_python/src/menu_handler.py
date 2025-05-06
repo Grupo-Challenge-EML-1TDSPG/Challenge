@@ -1,0 +1,21 @@
+def mostrar_menu_principal():
+    print("\n" + "="*30)
+    print("      MENU PRINCIPAL HC      ")
+    print("="*30)
+    print("1. Cadastro de Usuário")
+    print("2. Login de Usuário")
+    print("0. Sair do Sistema")
+    print("="*30)
+
+def mostrar_menu_usuario():
+    print("\n" + "="*30)
+    print("        MENU DO USUÁRIO        ")
+    print("="*30)
+    print("3. Meus Resultados")
+    print("4. Minhas Receitas")
+    print("5. Minhas Agendas")
+    print("6. Agendar Teleconsulta")
+    print("7. Meus Dados")
+    print("8. Ajuda")
+    print("9. Sair do Login (Logout)")
+    print("="*30)
