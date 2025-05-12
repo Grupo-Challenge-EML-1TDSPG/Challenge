@@ -1,2 +1,2 @@
 # Challenge
-Grupo Enzo Okuizumi, Milton Jakson, Lucas Barros - 1TDSPG
+Grupo Enzo Okuizumi, Lucas Barros, Milton Jakson - 1TDSPG
