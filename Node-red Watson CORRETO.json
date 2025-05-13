@@ -1,0 +1,557 @@
+[
+    {
+        "id": "a7e4d56541303250",
+        "type": "tab",
+        "label": "Fluxo 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "40b5adaf6a0559b4",
+        "type": "watson-speech-to-text",
+        "z": "a7e4d56541303250",
+        "name": "",
+        "alternatives": 1,
+        "speakerlabels": true,
+        "smartformatting": false,
+        "lang": "pt-BR",
+        "langhidden": "pt-BR",
+        "langcustom": "NoCustomisationSetting",
+        "langcustomhidden": "",
+        "custom-weight": "0.5",
+        "band": "BroadbandModel",
+        "bandhidden": "",
+        "keywords": "",
+        "keywords-threshold": "0.5",
+        "word-confidence": false,
+        "password": "",
+        "apikey": "piRP1h7pOEV36E-YG9IQi7QJP6ct5r_5J5OPZkYyvDbm",
+        "payload-response": true,
+        "streaming-mode": false,
+        "streaming-mute": true,
+        "auto-connect": false,
+        "discard-listening": false,
+        "disable-precheck": false,
+        "service-endpoint": "https://api.us-south.speech-to-text.watson.cloud.ibm.com/instances/5e122f13-9176-484e-881f-8e2cca3417b7",
+        "x": 720,
+        "y": 200,
+        "wires": [
+            [
+                "4858a47d1b3d229f",
+                "07b195c0733299be"
+            ]
+        ]
+    },
+    {
+        "id": "ca489912fd9a6ecf",
+        "type": "function",
+        "z": "a7e4d56541303250",
+        "name": "function 1",
+        "func": "msg.params = {\n    \"session_id\": msg.payload.chatId,\n    \"type\": \"voice\"\n}\nmsg.payload = msg.payload.weblink\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 200,
+        "wires": [
+            [
+                "40b5adaf6a0559b4",
+                "212aa5ac7deafd6a"
+            ]
+        ]
+    },
+    {
+        "id": "920313f4892178a0",
+        "type": "function",
+        "z": "a7e4d56541303250",
+        "name": "function 2",
+        "func": "msg.payload = {\n    \"content\": msg.payload,\n    \"type\": \"voice\",\n    \"chatId\": msg.params.session_id,\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1600,
+        "y": 200,
+        "wires": [
+            [
+                "dd4a6659d65c4375",
+                "5ee0c3bcf84d5f55"
+            ]
+        ]
+    },
+    {
+        "id": "fe93b453c3bd87af",
+        "type": "function",
+        "z": "a7e4d56541303250",
+        "name": "function 3",
+        "func": "msg.params = {\n    \"session_id\": msg.payload.chatId\n}\nmsg.payload = msg.payload.content\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 400,
+        "wires": [
+            [
+                "f6392fd960674622",
+                "e14bc46defe3efa3"
+            ]
+        ]
+    },
+    {
+        "id": "f991ed07c4c45f34",
+        "type": "watson-text-to-speech",
+        "z": "a7e4d56541303250",
+        "name": "",
+        "lang": "pt-BR",
+        "langhidden": "pt-BR",
+        "langcustom": "NoCustomisationSetting",
+        "langcustomhidden": "",
+        "voice": "pt-BR_IsabelaV3Voice",
+        "voicehidden": "pt-BR_IsabelaV3Voice",
+        "format": "audio/wav",
+        "password": "",
+        "apikey": "dnrhND9tCNXEyyFqyIjv5jjTNTcSDqp0lwphwAbRxyiy",
+        "payload-response": true,
+        "service-endpoint": "https://api.au-syd.text-to-speech.watson.cloud.ibm.com/instances/9ebc176a-1302-4f9b-8568-f05bdc94f183",
+        "x": 1380,
+        "y": 200,
+        "wires": [
+            [
+                "920313f4892178a0",
+                "ead57c6aa1ca6b62"
+            ]
+        ],
+        "info": "console.log(\"[DEBUG] Entrada da Função 4:\", JSON.stringify(msg.payload));\r\n"
+    },
+    {
+        "id": "31b7b0f84148e759",
+        "type": "switch",
+        "z": "a7e4d56541303250",
+        "name": "",
+        "property": "payload.type",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "voice",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "message",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "photo",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "animation",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "sticker",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 5,
+        "x": 290,
+        "y": 300,
+        "wires": [
+            [
+                "ca489912fd9a6ecf"
+            ],
+            [
+                "fe93b453c3bd87af"
+            ],
+            [
+                "89bdf7082cd9e982"
+            ],
+            [
+                "2a54bd62e9a2e435"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "29ca5995dd566024",
+        "type": "telegram receiver",
+        "z": "a7e4d56541303250",
+        "name": "",
+        "bot": "d4ce88e776d4a92f",
+        "saveDataDir": "",
+        "filterCommands": false,
+        "x": 110,
+        "y": 300,
+        "wires": [
+            [
+                "31b7b0f84148e759"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "dd4a6659d65c4375",
+        "type": "telegram sender",
+        "z": "a7e4d56541303250",
+        "name": "",
+        "bot": "d4ce88e776d4a92f",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 1770,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4858a47d1b3d229f",
+        "type": "watson-assistant-v2",
+        "z": "a7e4d56541303250",
+        "name": "SimplifyHCBot",
+        "service-endpoint": "https://api.us-south.assistant.watson.cloud.ibm.com/instances/ba04109b-07dd-469b-bf3a-53a3a71ae680",
+        "assistant_id": "d84af718-b476-413b-8623-f3aa94ba3755",
+        "debug": false,
+        "restart": false,
+        "return_context": true,
+        "alternate_intents": false,
+        "multisession": true,
+        "timeout": "",
+        "optout-learning": false,
+        "persist-session-id": true,
+        "x": 940,
+        "y": 200,
+        "wires": [
+            [
+                "e361299f16ae29c4",
+                "03a4576ddee376d5"
+            ]
+        ]
+    },
+    {
+        "id": "f6392fd960674622",
+        "type": "watson-assistant-v2",
+        "z": "a7e4d56541303250",
+        "name": "SimplifyHCBot",
+        "service-endpoint": "https://api.us-south.assistant.watson.cloud.ibm.com/instances/ba04109b-07dd-469b-bf3a-53a3a71ae680",
+        "assistant_id": "d84af718-b476-413b-8623-f3aa94ba3755",
+        "debug": false,
+        "restart": false,
+        "return_context": true,
+        "alternate_intents": false,
+        "multisession": true,
+        "timeout": "",
+        "optout-learning": false,
+        "persist-session-id": false,
+        "x": 720,
+        "y": 400,
+        "wires": [
+            [
+                "c1738b9593b502d3",
+                "73ed5711e89393af"
+            ]
+        ]
+    },
+    {
+        "id": "e361299f16ae29c4",
+        "type": "function",
+        "z": "a7e4d56541303250",
+        "name": "function 9",
+        "func": "// Ele espera que msg.payload contenha a saída do seu serviço de NLP.\n\nvar nlpResponse = msg.payload; // A resposta completa do seu serviço de NLP\nvar confidenceThreshold = 0.3; // Limiar de confiança. Ajuste se necessário.\n\nlet notUnderstood = false;\n\n// Define a mensagem de fallback padrão para a que você deseja.\nlet customFallbackMessage = \"Não tenho certeza do que você quis dizer. Você pode repetir?\";\n\n// Guarda a resposta original do NLP para depuração, caso precisemos.\n// Será útil se algo der errado ou se a intenção for entendida mas não houver texto.\n// É bom fazer uma cópia para evitar modificar o objeto original se ele for usado em outros lugares.\nmsg.originalNlpOutput = JSON.parse(JSON.stringify(nlpResponse));\n\n// 0. Validação básica do payload do NLP\nif (typeof nlpResponse !== 'object' || nlpResponse === null || typeof nlpResponse.output !== 'object' || nlpResponse.output === null) {\n    node.warn(\"Payload do NLP está malformado ou 'output' está ausente. Considerado como não entendido.\");\n    notUnderstood = true;\n} else {\n    // Cenário 1: O NLP explicitamente oferece SUGESTÕES.\n    // Isso indica que a confiança não foi alta na interpretação inicial.\n    if (nlpResponse.output.generic && Array.isArray(nlpResponse.output.generic)) {\n        for (let i = 0; i < nlpResponse.output.generic.length; i++) {\n            if (nlpResponse.output.generic[i] && nlpResponse.output.generic[i].response_type === \"suggestion\") {\n                notUnderstood = true;\n                // A customFallbackMessage já está definida para a mensagem correta.\n                //msg.suggestionsFromNlp = nlpResponse.output.generic[i].suggestions; // Opcional\n                node.log(\"NLP ofereceu sugestões. Marcado como não entendido.\"); // Adicionado log para clareza\n                break;\n            }\n        }\n    }\n\n    // Cenário 2: O NLP não encontrou INTENÇÕES claras ou a confiança é baixa.\n    // Só executa se o Cenário 1 não marcou como \"notUnderstood\".\n    if (!notUnderstood) {\n        if (nlpResponse.output.intents && Array.isArray(nlpResponse.output.intents)) {\n            if (nlpResponse.output.intents.length === 0) {\n                node.warn(\"Nenhuma intenção encontrada pelo NLP.\");\n                notUnderstood = true;\n            } else if (nlpResponse.output.intents[0].confidence !== undefined &&\n                       nlpResponse.output.intents[0].confidence < confidenceThreshold) {\n                node.warn(\"Baixa confiança na intenção principal: \" + nlpResponse.output.intents[0].intent +\n                           \" (Confiança: \" + nlpResponse.output.intents[0].confidence + \")\");\n                notUnderstood = true;\n            }\n            // Adicione aqui verificações para intents específicos de \"fallback\", se houver.\n            // else if (nlpResponse.output.intents[0].intent === \"seu_intent_de_fallback\") {\n            //     notUnderstood = true;\n            // }\n        } else {\n            // Se 'nlpResponse.output.intents' não existir ou não for um array.\n            node.warn(\"Estrutura de 'intents' não encontrada ou malformada em nlpResponse.output.\");\n            notUnderstood = true;\n        }\n    }\n}\n\n// Decisão final sobre o msg.payload de saída\nif (notUnderstood) {\n    msg.payload = customFallbackMessage;\n    node.warn(\"Mensagem marcada como NÃO ENTENDIDA. Novo payload: '\" + msg.payload + \"'\");\n    node.warn(\"Output original do NLP que levou ao não entendimento: \" + JSON.stringify(msg.originalNlpOutput)); // Log importante\n} else {\n    // Foi ENTENDIDO! Vamos tentar extrair o texto de resposta do NLP.\n    // (Isso é o que você mencionou com msg.payload.output.generic[0].text)\n    if (nlpResponse.output &&\n        nlpResponse.output.generic &&\n        Array.isArray(nlpResponse.output.generic) &&\n        nlpResponse.output.generic.length > 0 &&\n        nlpResponse.output.generic[0].response_type === \"text\" &&\n        typeof nlpResponse.output.generic[0].text === 'string' &&\n        nlpResponse.output.generic[0].text.trim() !== '') {\n\n        msg.payload = nlpResponse.output.generic[0].text;\n        node.log(\"Mensagem ENTENDIDA. Payload definido como texto do NLP: '\" + msg.payload + \"'\");\n    } else {\n        // Intenção foi entendida, mas não há uma resposta de texto padrão ou está vazia.\n        node.warn(\"Intenção entendida, mas sem resposta de texto utilizável em output.generic[0].text. Usando fallback.\");\n        // Aqui, você pode decidir se quer usar a mesma customFallbackMessage ou uma diferente.\n        // Para manter a consistência do seu pedido \"deixar só a parte de...\", usaremos a mesma.\n        msg.payload = customFallbackMessage;\n        // Se preferir uma mensagem diferente para ESTE caso específico:\n        // msg.payload = \"Entendi sua intenção (\" + (nlpResponse.output.intents[0] ? nlpResponse.output.intents[0].intent : 'desconhecida') + \"), mas não tenho uma resposta específica em texto para isso no momento.\";\n        node.warn(\"Output original do NLP neste caso de 'entendido sem texto': \" + JSON.stringify(msg.originalNlpOutput)); // Log importante\n    }\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1160,
+        "y": 200,
+        "wires": [
+            [
+                "f991ed07c4c45f34",
+                "c8c96366357640e1"
+            ]
+        ]
+    },
+    {
+        "id": "c1738b9593b502d3",
+        "type": "function",
+        "z": "a7e4d56541303250",
+        "name": "function 8",
+        "func": "msg.payload = {\n    \"content\": msg.payload.output.generic[0].text,\n    \"chatId\": msg.params.session_id,\n    \"type\": \"message\"\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 920,
+        "y": 400,
+        "wires": [
+            [
+                "dd4a6659d65c4375",
+                "f646918700ba12df"
+            ]
+        ]
+    },
+    {
+        "id": "89bdf7082cd9e982",
+        "type": "function",
+        "z": "a7e4d56541303250",
+        "name": "function 10",
+        "func": "msg.payload = {\n    \"content\": \"O SimplifyHC Bot não consegue ver imagens.\",\n    \"chatId\": msg.payload.chatId,\n    \"type\": \"message\"\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 500,
+        "wires": [
+            [
+                "dd4a6659d65c4375",
+                "50c1d7ebab6dfec9"
+            ]
+        ]
+    },
+    {
+        "id": "2a54bd62e9a2e435",
+        "type": "function",
+        "z": "a7e4d56541303250",
+        "name": "function 11",
+        "func": "msg.payload = {\n    \"content\": \"O SimplifyHC Bot não consegue ver Figurinhas ou gifs.\",\n    \"chatId\": msg.payload.chatId,\n    \"type\": \"message\"\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 620,
+        "wires": [
+            [
+                "dd4a6659d65c4375",
+                "37929c7b8721b4dc"
+            ]
+        ]
+    },
+    {
+        "id": "73ed5711e89393af",
+        "type": "debug",
+        "z": "a7e4d56541303250",
+        "name": "debug 13",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 730,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "212aa5ac7deafd6a",
+        "type": "debug",
+        "z": "a7e4d56541303250",
+        "name": "debug 16",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 500,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "ead57c6aa1ca6b62",
+        "type": "debug",
+        "z": "a7e4d56541303250",
+        "name": "debug 18",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1360,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "c8c96366357640e1",
+        "type": "debug",
+        "z": "a7e4d56541303250",
+        "name": "debug 19",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1160,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "03a4576ddee376d5",
+        "type": "debug",
+        "z": "a7e4d56541303250",
+        "name": "debug 20",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 940,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "07b195c0733299be",
+        "type": "debug",
+        "z": "a7e4d56541303250",
+        "name": "debug 21",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "5ee0c3bcf84d5f55",
+        "type": "debug",
+        "z": "a7e4d56541303250",
+        "name": "debug 22",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1600,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "e14bc46defe3efa3",
+        "type": "debug",
+        "z": "a7e4d56541303250",
+        "name": "debug 23",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 520,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "50c1d7ebab6dfec9",
+        "type": "debug",
+        "z": "a7e4d56541303250",
+        "name": "debug 24",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 760,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "37929c7b8721b4dc",
+        "type": "debug",
+        "z": "a7e4d56541303250",
+        "name": "debug 25",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 760,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "f646918700ba12df",
+        "type": "debug",
+        "z": "a7e4d56541303250",
+        "name": "debug 26",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 920,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "d4ce88e776d4a92f",
+        "type": "telegram bot",
+        "botname": "SimplifyHCBot",
+        "usernames": "",
+        "chatids": "",
+        "baseapiurl": "",
+        "testenvironment": false,
+        "updatemode": "polling",
+        "pollinterval": 300,
+        "usesocks": false,
+        "sockshost": "",
+        "socksprotocol": "socks5",
+        "socksport": 6667,
+        "socksusername": "anonymous",
+        "sockspassword": "",
+        "bothost": "",
+        "botpath": "",
+        "localbothost": "0.0.0.0",
+        "localbotport": 8443,
+        "publicbotport": 8443,
+        "privatekey": "",
+        "certificate": "",
+        "useselfsignedcertificate": false,
+        "sslterminated": false,
+        "verboselogging": false
+    }
+]
