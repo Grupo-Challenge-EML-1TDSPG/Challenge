@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entre em Contato - SimplifyHC</title>
+    <link rel="stylesheet" href="../css/style.css"> 
+    <link rel="stylesheet" href="../css/contato.css">
+    <script src="../js/script.js" defer></script>
+    <script src="../js/contato.js" defer></script> 
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <div>
+                <a href="../../index.html" class="logo">
+                    <img src="../img/imagem-index/imagem-logo.jpeg" alt="Logo SimplifyHC">
+                    <span>SimplifyHC</span>
+                </a>
+            </div>
+            <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="primary-navigation">
+                <img src="../img/icons/icone-botao.png" alt="Menu" class="menu-icon-img"> 
+            </button>
+            <nav id="primary-navigation" aria-hidden="true">
+                <ul>
+                    <li><a href="../../index.html">Início</a></li> 
+                    <li><a href="./hospitais.html">Hospitais</a></li>
+                    <li><a href="./servicos.html">Serviços</a></li>
+                    <li><a href="./integrantes.html">Integrantes</a></li>
+                    <li><a href="./faq.html">FAQ</a></li>
+                    <li><a href="#" class="active">Contato</a></li>
+                    <li class="nav-item-login"><a href="#" class="btn-nav-login">Entrar</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="contato-hero">
+            <div class="container">
+                <h2>Entre em Contato</h2>
+                <p>Estamos aqui para ajudar. Envie sua mensagem e responderemos o mais breve possível.</p>
+            </div>
+        </section>
+
+        <section id="contato-form-section">
+            <div class="container contato-layout">
+                <div class="form-container">
+                    <form id="formContato">
+                        <div class="form-group">
+                            <label for="nomeCompleto">Nome Completo*</label>
+                            <input type="text" id="nomeCompleto" name="nomeCompleto" placeholder="Seu nome completo" required>
+                            <small class="error-message"></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email*</label>
+                            <input type="email" id="email" name="email" placeholder="seu.email@exemplo.com" required>
+                            <small class="error-message"></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="telefone">Telefone</label>
+                            <input type="tel" id="telefone" name="telefone" placeholder="(99) 99999-9999">
+                        </div>
+                        <div class="form-group">
+                            <label for="assunto">Assunto*</label>
+                            <select id="assunto" name="assunto" required>
+                                <option value="" disabled selected>Selecione um assunto</option>
+                                <option value="duvida">Dúvida</option>
+                                <option value="sugestao">Sugestão</option>
+                                <option value="problema_tecnico">Problema Técnico</option>
+                                <option value="agendamento">Agendamento</option>
+                                <option value="outro">Outro</option>
+                            </select>
+                            <small class="error-message"></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="mensagem">Mensagem*</label>
+                            <textarea id="mensagem" name="mensagem" rows="5" placeholder="Descreva sua mensagem aqui..." required></textarea>
+                            <small class="error-message"></small>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-enviar-contato">Enviar Mensagem</button>
+                    </form>
+                    <div id="formStatus" class="form-status-message" aria-live="polite"></div>
+                </div>
+
+                <aside class="info-contato-container">
+                    <h3>Informações de Contato</h3>
+                    <div class="info-bloco">
+                        <h4>Endereço</h4>
+                        <p>Hospital das Clínicas da FMUSP<br>
+                           Rua Dr. Ovídio Pires de Campos, 225<br>
+                           Cerqueira César - São Paulo/SP<br>
+                           CEP 05403-010</p>
+                    </div>
+                    <div class="info-bloco">
+                        <h4>Telefones</h4>
+                        <p>Central de Atendimento: (11) 2661-0000</p>
+                        <p>SAC: 0800 123 4567</p>
+                    </div>
+                    <div class="info-bloco">
+                        <h4>Email</h4>
+                        <p><a href="mailto:contato@simplify-hc.com.br">contato@simplify-hc.com.br</a></p>
+                    </div>
+                    <div class="info-bloco">
+                        <h4>Horário de Atendimento</h4>
+                        <p>Segunda a Sexta: 8h às 18h</p>
+                        <p>Sábado: 8h às 12h</p>
+                    </div>
+                    <div class="info-bloco">
+                        <h4>Redes Sociais</h4>
+                        <div class="info-redes-sociais">
+                            <a href="https://www.youtube.com/user/RedeLucyMontoro" title="Youtube da Rede Lucy Montoro" target="_blank" rel="noopener"><img src="../img/icons/icone-youtube.png" alt="Ícone Youtube"></a>
+                            <a href="https://www.instagram.com/redelucymontoro/" title="Instagram da Rede Lucy Montoro" target="_blank" rel="noopener"><img src="../img/icons/icone-instagram.png" alt="Ícone Instagram"></a>
+                            <a href="https://twitter.com/redelucymontoro" title="Twitter da Rede Lucy Montoro" target="_blank" rel="noopener"><img src="../img/icons/icone-twitter.png" alt="Ícone Twitter"></a>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-column about">
+                <h3>SimplifyHC</h3>
+                <p>Simplificando o acesso à saúde para todos.</p>
+                <div class="social-icons">
+                    <a href="https://www.youtube.com/user/RedeLucyMontoro" title="Youtube da Rede Lucy Montoro" target="_blank" rel="noopener"><img src="../img/icons/icone-youtube.png" alt="Ícone Youtube"></a>
+                    <a href="https://www.instagram.com/redelucymontoro/" title="Instagram da Rede Lucy Montoro" target="_blank" rel="noopener"><img src="../img/icons/icone-instagram.png" alt="Ícone Instagram"></a>
+                    <a href="https://twitter.com/redelucymontoro" title="Twitter da Rede Lucy Montoro" target="_blank" rel="noopener"><img src="../img/icons/icone-twitter.png" alt="Ícone Twitter"></a>
+                </div>
+            </div>
+            <div class="footer-column links">
+                <h4>Navegação</h4>
+                <ul>
+                    <li><a href="../../index.html">Início</a></li>
+                    <li><a href="./hospitais.html">Hospitais</a></li>
+                    <li><a href="./servicos.html">Serviços</a></li>
+                    <li><a href="./integrantes.html">Integrantes</a></li>
+                    <li><a href="./faq.html">FAQ</a></li>
+                    <li><a href="#">Contato</a></li>
+                </ul>
+            </div>
+            <div class="footer-column links">
+                <h4>Serviços</h4>
+                <ul>
+                    <li><a href="#">Resultados de Exames</a></li>
+                    <li><a href="#">Receitas Médicas</a></li>
+                    <li><a href="#">Agendamento</a></li>
+                    <li><a href="#">Teleconsulta</a></li>
+                </ul>
+            </div>
+            <div class="footer-column contact">
+                <h4>Contato</h4>
+                <p>HC Hospital das Clínicas</p>
+                <p>Rua Dr. Ovídio Pires de Campos, 225</p>
+                <p>São Paulo - SP</p>
+                <p>CEP 05403-010</p>
+                <p>Telefone: (11) 2661-0000</p>
+                <p>Email: contato@simplify-hc.com.br</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 SimplifyHC. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <div class="floating-buttons">
+        <a href="#" class="floating-btn accessibility-btn" aria-label="Acessibilidade">♿</a>
+        <a href="#" class="floating-btn chat-btn" aria-label="Chat">💬</a>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,173 @@
+/* =================== SEÇÃO HERO DA PÁGINA EQUIPE (MOBILE FIRST) =================== */
+#equipe-hero {
+    background-color: #e9f3fb;
+    padding: 30px 0;
+    text-align: center;
+}
+
+#equipe-hero h2 {
+    color: #1a237e;
+    margin-bottom: 10px;
+}
+
+#equipe-hero p {
+    font-size: 1em;
+    color: #333;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* =================== SEÇÃO MEMBROS DA EQUIPE (MOBILE FIRST) =================== */
+#membros-equipe {
+    padding: 30px 0;
+    background-color: #fff;
+}
+
+.equipe-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* 1 coluna no mobile */
+    gap: 25px;
+}
+
+.integrante-card {
+    background-color: #fff;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    text-align: center; /* Centraliza conteúdo do card */
+    padding: 25px 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+.integrante-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.integrante-foto {
+    width: 150px; /* Tamanho da foto */
+    height: 150px;
+    border-radius: 50%; /* Foto redonda */
+    object-fit: cover;
+    margin: 0 auto 20px auto; /* Centraliza e dá espaço abaixo */
+    border: 3px solid #e0e7ff; /* Borda sutil na foto */
+}
+
+.integrante-info h3 {
+    font-size: 1.25em;
+    color: #1a237e;
+    margin-bottom: 5px;
+}
+
+.integrante-info .integrante-rm,
+.integrante-info .integrante-turma {
+    font-size: 0.9em;
+    color: #4a5568;
+    margin-bottom: 3px;
+}
+.integrante-info .integrante-turma {
+    margin-bottom: 15px; /* Mais espaço antes dos ícones de redes sociais */
+}
+
+.integrante-redes {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Espaço entre os ícones */
+}
+
+.integrante-redes a img {
+    width: 24px; /* Tamanho dos ícones de redes sociais */
+    height: 24px;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+.integrante-redes a:hover img {
+    opacity: 1;
+}
+
+/* =================== SEÇÃO SOBRE O PROJETO (MOBILE FIRST) =================== */
+#sobre-projeto {
+    padding: 30px 0;
+    background-color: #f9fafb;
+}
+
+.sobre-projeto-content {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    max-width: 800px; /* Limita a largura do bloco de texto */
+    margin: 0 auto; /* Centraliza o bloco */
+}
+
+.sobre-projeto-content h2 {
+    text-align: left; /* Título à esquerda dentro do bloco */
+    margin-bottom: 20px;
+    color: #1a237e;
+}
+
+.sobre-projeto-content p {
+    font-size: 0.95em;
+    color: #333;
+    line-height: 1.7;
+    margin-bottom: 15px;
+}
+.sobre-projeto-content p:last-child {
+    margin-bottom: 0;
+}
+
+
+/* =================== MEDIA QUERIES PARA PÁGINA INTEGRANTES =================== */
+
+@media (max-width: 600px) {
+    #equipe-hero, #membros-equipe, #sobre-projeto {
+        padding: 20px 0;
+    }
+    .integrante-foto {
+        width: 120px;
+        height: 120px;
+    }
+    .integrante-card {
+        padding: 20px 15px;
+    }
+    .sobre-projeto-content {
+        padding: 20px;
+    }
+}
+
+@media (min-width: 600px) {
+    .equipe-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* 2 colunas se couber */
+        gap: 20px;
+    }
+}
+
+@media (min-width: 768px) {
+    #equipe-hero, #membros-equipe, #sobre-projeto {
+        padding: 40px 0;
+    }
+     .equipe-grid {
+        /* auto-fit com minmax(280px, 1fr) geralmente resulta em 2 ou 3 colunas aqui */
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+    }
+}
+
+@media (min-width: 992px) {
+    #equipe-hero, #membros-equipe, #sobre-projeto {
+        padding: 50px 0;
+    }
+    .equipe-grid {
+        /* Em telas maiores, pode ir para 3 colunas mais confortavelmente */
+        /* Se o container for 1100px, 3 cards de ~300px + gaps cabem bem */
+        grid-template-columns: repeat(3, 1fr); /* Força 3 colunas */
+    }
+}
+
+/* Se os cards ficarem muito largos em telas > 992px antes de atingir o max-width do container
+   em telas muito grandes, você pode ajustar o grid-template-columns acima
+   ou o max-width dos cards.
+*/
+@media (min-width: 1300px) {
+   /* Ajustes finos se necessário para telas extra grandes */
+}
