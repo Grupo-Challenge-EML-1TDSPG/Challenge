@@ -1,10 +1,4 @@
 /* assets/css/faq.css */
-
-/* =================== ESTILOS GLOBAIS DA PÁGINA FAQ (MOBILE FIRST) =================== */
-body {
-    /* background-color: #f8f9fa; */
-}
-
 /* =================== SEÇÃO HERO DA PÁGINA FAQ (MOBILE FIRST) =================== */
 #faq-hero {
     background-color: #e9f3fb;
@@ -104,13 +98,7 @@ body {
 }
 
 .faq-question[aria-expanded="true"] + .faq-answer {
-    /* max-height precisa ser um valor maior que a altura máxima esperada da resposta.
-       Se as respostas forem muito longas, aumente este valor. */
-    max-height: 500px; /* Altura máxima para a animação */
-    /* Padding vertical é aplicado quando expandido */
-    /* padding-top: 15px;
-    padding-bottom: 20px; */
-    /* O padding nos parágrafos internos já cuida disso */
+    max-height: 500px;
 }
 
 

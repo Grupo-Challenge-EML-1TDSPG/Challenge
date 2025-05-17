@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minhas Consultas - SimplifyHC</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/area-paciente.css">
+    <link rel="stylesheet" href="../../../assets/css/accessibility.css">
+    <link rel="stylesheet" href="../../../assets/css/interactive-guide.css">
+    <script src="../../../assets/js/script.js" defer></script>
+    <script src="../../../assets/js/dados-pacientes.js" defer></script>
+    <script src="../../../assets/js/area-paciente.js" defer></script>
+    <script src="../../../assets/js/accessibility.js" defer></script>
+    <script src="../../../assets/js/interactive-guide.js" defer></script>
+</head>
+<body class="area-paciente-active">
+
+    <header>
+        <div class="container">
+            <div>
+                <a href="../../../index.html" class="logo">
+                    <img src="../../../assets/img/imagem-index/imagem-logo.jpeg" alt="Logo SimplifyHC">
+                    <span>SimplifyHC</span>
+                </a>
+            </div>
+            <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="primary-navigation">
+                <img src="../../../assets/img/icons/icone-botao.png" alt="Menu" class="menu-icon-img">
+            </button>
+            <nav id="primary-navigation" aria-hidden="true" aria-label="Navegação principal">
+                <ul>
+                    <li><a href="../../../index.html">Início</a></li>
+                    <li><a href="../hospitais.html">Hospitais</a></li>
+                    <li><a href="../servicos.html">Serviços</a></li>
+                    <li><a href="../integrantes.html">Integrantes</a></li>
+                    <li><a href="../faq.html">FAQ</a></li>
+                    <li><a href="../contato.html">Contato</a></li>
+                    <li class="nav-item-login"><a href="./meu-perfil.html" class="btn-nav-login active">Meu Perfil</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="paciente-main-container container">
+        <aside class="paciente-sidebar">
+            <div class="paciente-sidebar-header">
+                <h3>Área do Paciente</h3>
+                <p id="sidebarUserName">Carregando...</p>
+            </div>
+            <nav class="paciente-nav" aria-label="Navegação da área do paciente">
+                <ul>
+                    <li><a href="./meu-perfil.html"><span class="nav-icon">👤</span> Meus Dados</a></li>
+                    <li><a href="./meus-exames.html"><span class="nav-icon">📄</span> Exames</a></li>
+                    <li><a href="./minhas-receitas.html"><span class="nav-icon">💊</span> Receitas</a></li>
+                    <li><a href="./minhas-consultas.html" class="active"><span class="nav-icon">📅</span> Consultas</a></li>
+                    <li><a href="#" id="linkSair"><span class="nav-icon">🚪</span> Sair</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <section class="paciente-content-area">
+            <div class="content-header">
+                <h2>Minhas Consultas</h2>
+                <button class="btn btn-primary" id="agendarNovaConsultaBtn" type="button">
+                    <span class="nav-icon icon-inverted-margin">📅</span> Agendar Nova Consulta
+                </button>
+            </div>
+
+            <div class="consultas-tabs">
+                <button class="tab-link active" data-tab="proximas-consultas-content">Próximas Consultas</button>
+                <button class="tab-link" data-tab="historico-consultas-content">Histórico de Consultas</button>
+            </div>
+
+            <div id="proximas-consultas-content" class="tab-content active">
+                <div class="placeholder-content hidden" id="proximasConsultasPlaceholder">
+                    <img src="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23777'%3E%3Cpath d='M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM9 14H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2zm-8 4H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2zM5 8V6h14v2H5z'/%3E%3C/svg%3E" alt="Calendário Vazio" class="placeholder-icon">
+                    <p>Sem consultas agendadas</p>
+                    <p>Você não possui consultas agendadas para os próximos dias.</p>
+                </div>
+                <div id="proximasConsultasList" class="lista-itens">
+                    <!-- Conteúdo populado por JS -->
+                </div>
+            </div>
+
+            <div id="historico-consultas-content" class="tab-content">
+                <div class="placeholder-content hidden" id="historicoConsultasPlaceholder">
+                     <img src="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23777'%3E%3Cpath d='M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.25 2.52.77-1.28-3.52-2.09V8H12z'/%3E%3C/svg%3E" alt="Relógio de Histórico" class="placeholder-icon">
+                    <p>Seu histórico de consultas está vazio.</p>
+                </div>
+                 <div id="historicoConsultasList" class="lista-itens">
+                    <!-- Conteúdo populado por JS -->
+                </div>
+            </div>
+
+            <div class="info-importante-box">
+                <h4>Informações Importantes</h4>
+                <ul>
+                    <li>Cancele consultas com pelo menos 24 horas de antecedência para evitar indisponibilidade de horários para outros pacientes.</li>
+                    <li>Para teleconsultas, teste seu equipamento (câmera e microfone) e conexão com a internet antes do horário agendado.</li>
+                    <li>Chegue com 15 minutos de antecedência para consultas presenciais.</li>
+                    <li>Leve seus documentos (RG, CPF, Cartão SUS) e, se aplicável, exames anteriores para a consulta.</li>
+                </ul>
+            </div>
+
+            <dialog id="modalAgendarConsulta" class="modal-overlay" aria-labelledby="modalAgendarTitle" aria-describedby="modalAgendarDescription">
+                <div class="modal-content">
+                    <button type="button" class="modal-close-btn" aria-label="Fechar modal">×</button>
+                    <h3 id="modalAgendarTitle">Agendar Nova Consulta</h3>
+                    <form id="formAgendarConsulta">
+                        <div class="form-group">
+                            <label for="tipoConsulta">Tipo de Consulta*:</label>
+                            <select id="tipoConsulta" name="tipoConsulta" required>
+                                <option value="Presencial">Presencial</option>
+                                <option value="Teleconsulta">Teleconsulta</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="especialidadeConsulta">Especialidade*:</label>
+                            <input type="text" id="especialidadeConsulta" name="especialidadeConsulta" placeholder="Ex: Cardiologia" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="medicoConsulta">Médico (Opcional):</label>
+                            <input type="text" id="medicoConsulta" name="medicoConsulta" placeholder="Nome do médico">
+                        </div>
+                        <div class="form-group">
+                            <label for="dataConsulta">Data e Hora*:</label>
+                            <input type="datetime-local" id="dataConsulta" name="dataConsulta" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="localConsulta">Local/Unidade*:</label>
+                            <input type="text" id="localConsulta" name="localConsulta" placeholder="Ex: HC Clínicas - Unidade Central ou 'Teleconsulta'" required>
+                        </div>
+                         <div class="form-group">
+                            <label for="observacoesConsulta">Observações:</label>
+                            <textarea id="observacoesConsulta" name="observacoesConsulta" rows="3" placeholder="Ex: Trazer exames anteriores"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Confirmar Agendamento</button>
+                    </form>
+                    <div id="agendamentoStatus" class="form-status-message" aria-live="polite"></div>
+                </div>
+            </dialog>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-column about">
+                <h3>SimplifyHC</h3>
+                <p>Simplificando o acesso à saúde para todos.</p>
+                 <div class="social-icons">
+                    <a href="https://www.youtube.com/user/RedeLucyMontoro" title="Youtube da Rede Lucy Montoro" target="_blank" rel="noopener"><img src="../../../assets/img/icons/icone-youtube.png" alt="Ícone Youtube"></a>
+                    <a href="https://www.instagram.com/redelucymontoro/" title="Instagram da Rede Lucy Montoro" target="_blank" rel="noopener"><img src="../../../assets/img/icons/icone-instagram.png" alt="Ícone Instagram"></a>
+                    <a href="https://twitter.com/redelucymontoro" title="Twitter da Rede Lucy Montoro" target="_blank" rel="noopener"><img src="../../../assets/img/icons/icone-twitter.png" alt="Ícone Twitter"></a>
+                </div>
+            </div>
+            <div class="footer-column links">
+                <h4>Navegação</h4>
+                <ul>
+                    <li><a href="../../../index.html">Início</a></li>
+                    <li><a href="../hospitais.html">Hospitais</a></li>
+                    <li><a href="../servicos.html">Serviços</a></li>
+                    <li><a href="../integrantes.html">Integrantes</a></li>
+                    <li><a href="../faq.html">FAQ</a></li>
+                    <li><a href="../contato.html">Contato</a></li>
+                </ul>
+            </div>
+            <div class="footer-column links">
+                <h4>Serviços Paciente</h4>
+                 <ul>
+                    <li><a href="./meus-exames.html">Resultados de Exames</a></li>
+                    <li><a href="./minhas-receitas.html">Receitas Médicas</a></li>
+                    <li><a href="./minhas-consultas.html">Agendamento</a></li>
+                    <li><a href="./minhas-consultas.html">Teleconsulta</a></li>
+                </ul>
+            </div>
+            <div class="footer-column contact">
+                <h4>Contato</h4>
+                <p>HC Hospital das Clínicas</p>
+                <p>Rua Dr. Ovídio Pires de Campos, 225</p>
+                <p>São Paulo - SP</p>
+                <p>CEP 05403-010</p>
+                <p>Telefone: (11) 2661-0000</p>
+                <p>Email: contato@simplify-hc.com.br</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 SimplifyHC. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <div id="accessibility-widget-container"></div>
+    <div id="interactive-guide-container"></div>
+    <div class="floating-buttons">
+        <button class="floating-btn accessibility-btn" id="accessibilityMenuButton" aria-label="Abrir menu de acessibilidade">♿</button>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Exames - SimplifyHC</title>
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    <link rel="stylesheet" href="../../../assets/css/area-paciente.css">
+    <link rel="stylesheet" href="../../../assets/css/accessibility.css">
+    <link rel="stylesheet" href="../../../assets/css/interactive-guide.css">
+    <script src="../../../assets/js/script.js" defer></script>
+    <script src="../../../assets/js/dados-pacientes.js" defer></script>
+    <script src="../../../assets/js/area-paciente.js" defer></script>
+    <script src="../../../assets/js/accessibility.js" defer></script>
+    <script src="../../../assets/js/interactive-guide.js" defer></script>
+</head>
+<body class="area-paciente-active">
+
+    <header>
+        <div class="container">
+            <div>
+                <a href="../../../index.html" class="logo">
+                    <img src="../../../assets/img/imagem-index/imagem-logo.jpeg" alt="Logo SimplifyHC">
+                    <span>SimplifyHC</span>
+                </a>
+            </div>
+             <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="primary-navigation">
+                <img src="../../../assets/img/icons/icone-botao.png" alt="Menu" class="menu-icon-img">
+            </button>
+            <nav id="primary-navigation" aria-hidden="true" aria-label="Navegação principal">
+                <ul>
+                    <li><a href="../../../index.html">Início</a></li>
+                    <li><a href="../hospitais.html">Hospitais</a></li>
+                    <li><a href="../servicos.html">Serviços</a></li>
+                    <li><a href="../integrantes.html">Integrantes</a></li>
+                    <li><a href="../faq.html">FAQ</a></li>
+                    <li><a href="../contato.html">Contato</a></li>
+                    <li class="nav-item-login"><a href="./meu-perfil.html" class="btn-nav-login active">Meu Perfil</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="paciente-main-container container">
+        <aside class="paciente-sidebar">
+            <div class="paciente-sidebar-header">
+                <h3>Área do Paciente</h3>
+                <p id="sidebarUserName">Carregando...</p> <!-- JS vai popular -->
+            </div>
+            <nav class="paciente-nav" aria-label="Navegação da área do paciente">
+                <ul>
+                    <li><a href="./meu-perfil.html"><span class="nav-icon">👤</span> Meus Dados</a></li>
+                    <li><a href="./meus-exames.html" class="active"><span class="nav-icon">📄</span> Exames</a></li>
+                    <li><a href="./minhas-receitas.html"><span class="nav-icon">💊</span> Receitas</a></li>
+                    <li><a href="./minhas-consultas.html"><span class="nav-icon">📅</span> Consultas</a></li>
+                    <li><a href="#" id="linkSair"><span class="nav-icon">🚪</span> Sair</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <section class="paciente-content-area">
+            <div class="content-header">
+                <h2>Meus Exames</h2>
+                <!-- Poderia ter filtros aqui no futuro -->
+            </div>
+
+            <div class="lista-itens" id="listaExamesContainer">
+                <!-- Placeholder para quando não há exames ou estão carregando -->
+                <div id="examesPlaceholder" class="placeholder-content hidden">
+                    <img src="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23777'%3E%3Cpath d='M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zM6 20V4h7v5h5v11H6z'/%3E%3C/svg%3E" alt="Ícone de Exames" class="placeholder-icon">
+                    <p>Nenhum exame encontrado</p>
+                    <p>Você não possui exames registrados no sistema.</p>
+                </div>
+                <table class="tabela-itens hidden" id="tabelaExames"> <!-- hidden por padrão, JS mostra -->
+                    <thead>
+                        <tr>
+                            <th>Nome do Exame</th>
+                            <th>Data</th>
+                            <th>Resultado</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Linhas de exames serão inseridas aqui pelo JS -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="info-importante-box">
+                <h4>Informações Importantes</h4>
+                <ul>
+                    <li>Os resultados dos exames laboratoriais ficam disponíveis em até 48h após a realização.</li>
+                    <li>Para exames de imagem, os laudos podem demorar até 72h.</li>
+                    <li>Os resultados ficam disponíveis permanentemente em sua conta para consulta.</li>
+                    <li>Em caso de dúvidas sobre os resultados, consulte seu médico. Não interprete os resultados sozinho.</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-column about">
+                <h3>SimplifyHC</h3>
+                <p>Simplificando o acesso à saúde para todos.</p>
+                <div class="social-icons">
+                    <a href="https://www.youtube.com/user/RedeLucyMontoro" title="Youtube da Rede Lucy Montoro" target="_blank" rel="noopener"><img src="../../../assets/img/icons/icone-youtube.png" alt="Ícone Youtube"></a>
+                    <a href="https://www.instagram.com/redelucymontoro/" title="Instagram da Rede Lucy Montoro" target="_blank" rel="noopener"><img src="../../../assets/img/icons/icone-instagram.png" alt="Ícone Instagram"></a>
+                    <a href="https://twitter.com/redelucymontoro" title="Twitter da Rede Lucy Montoro" target="_blank" rel="noopener"><img src="../../../assets/img/icons/icone-twitter.png" alt="Ícone Twitter"></a>
+                </div>
+            </div>
+            <div class="footer-column links">
+                <h4>Navegação</h4>
+                <ul>
+                    <li><a href="../../../index.html">Início</a></li>
+                    <li><a href="../hospitais.html">Hospitais</a></li>
+                    <li><a href="../servicos.html">Serviços</a></li>
+                    <li><a href="../integrantes.html">Integrantes</a></li>
+                    <li><a href="../faq.html">FAQ</a></li>
+                    <li><a href="../contato.html">Contato</a></li>
+                </ul>
+            </div>
+            <div class="footer-column links">
+                <h4>Serviços Paciente</h4>
+                 <ul>
+                    <li><a href="./meus-exames.html">Resultados de Exames</a></li>
+                    <li><a href="./minhas-receitas.html">Receitas Médicas</a></li>
+                    <li><a href="./minhas-consultas.html">Agendamento</a></li>
+                    <li><a href="./minhas-consultas.html">Teleconsulta</a></li>
+                </ul>
+            </div>
+            <div class="footer-column contact">
+                <h4>Contato</h4>
+                <p>HC Hospital das Clínicas</p>
+                <p>Rua Dr. Ovídio Pires de Campos, 225</p>
+                <p>São Paulo - SP</p>
+                <p>CEP 05403-010</p>
+                <p>Telefone: (11) 2661-0000</p>
+                <p>Email: contato@simplify-hc.com.br</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 SimplifyHC. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <div id="accessibility-widget-container"></div>
+    <div id="interactive-guide-container"></div>
+    <div class="floating-buttons">
+        <button class="floating-btn accessibility-btn" id="accessibilityMenuButton" aria-label="Abrir menu de acessibilidade">♿</button>
+    </div>
+
+</body>
+</html>

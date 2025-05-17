@@ -1,0 +1,362 @@
+/* =================== ESTILOS GLOBAIS PARA A PÁGINA LOGIN =================== */
+
+body.login-page-active {
+    overflow-y: auto; /* Garante scroll se o conteúdo for maior que a tela */
+}
+
+.login-main {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Alinha no topo para formulários longos */
+    min-height: calc(100vh - 80px); /* Altura mínima menos o header (ajuste 80px se seu header for diferente) */
+    padding: 40px 0; /* Espaçamento vertical */
+    background-color: #f0f4f8; /* Fundo levemente diferente para a área de login */
+}
+
+.login-container {
+    width: 100%;
+    max-width: 480px; /* Largura máxima para o card de autenticação */
+}
+
+/* Estilos para as seções de autenticação (login, cadastro, etc.) */
+.auth-section {
+    display: none; /* Escondido por padrão */
+}
+.auth-section.active {
+    display: block; /* Mostra a seção ativa */
+}
+
+.auth-card {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
+}
+.auth-card.text-center {
+    text-align: center;
+}
+
+.auth-card h2 {
+    text-align: center;
+    color: #1a237e;
+    margin-bottom: 10px;
+    font-size: 1.6em;
+}
+
+.auth-subtitle {
+    text-align: center;
+    color: #4b5563;
+    font-size: 0.95em;
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
+
+.back-to-login {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #007bff;
+    font-size: 0.9em;
+    text-decoration: none;
+}
+.back-to-login:hover {
+    text-decoration: underline;
+}
+
+/* Estilos dos Formulários */
+.form-group {
+    margin-bottom: 18px;
+}
+.form-group label {
+    display: block;
+    font-weight: 500; /* Medium weight */
+    margin-bottom: 6px;
+    color: #374151;
+    font-size: 0.9em;
+}
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group input[type="tel"],
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 1em;
+    color: #1f2937;
+    background-color: #f9fafb; /* Fundo levemente acinzentado para inputs */
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+    outline: none;
+    background-color: #fff;
+}
+
+.password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.password-wrapper input[type="password"],
+.password-wrapper input[type="text"] { /* Para quando o tipo muda para text */
+    padding-right: 40px; /* Espaço para o botão de toggle */
+}
+.toggle-password {
+    position: absolute;
+    right: 1px;
+    top: 1px;
+    bottom: 1px;
+    width: 38px;
+    background: transparent;
+    border: none;
+    padding: 0 10px;
+    cursor: pointer;
+    color: #6b7280;
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.toggle-password:hover {
+    color: #374151;
+}
+
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 0.85em;
+}
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    color: #4b5563;
+    cursor: pointer;
+}
+.checkbox-label input[type="checkbox"] {
+    margin-right: 6px;
+    accent-color: #007bff; /* Cor do checkbox quando marcado */
+}
+.auth-link {
+    color: #007bff;
+    text-decoration: none;
+}
+.auth-link:hover {
+    text-decoration: underline;
+}
+
+.btn-full-width {
+    width: 100%;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    font-size: 1em;
+}
+
+.auth-switch {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 0.9em;
+    color: #4b5563;
+}
+
+.form-status-message {
+    margin-top: 15px;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 0.9em;
+    text-align: center;
+    border-width: 1px;
+    border-style: solid;
+}
+.form-status-message.success {
+    background-color: #e6fffa;
+    color: #004d40;
+    border-color: #99f6e4;
+}
+.form-status-message.error {
+    background-color: #ffebee;
+    color: #c62828;
+    border-color: #ffcdd2;
+}
+
+/* Esconde a mensagem de status quando estiver vazia */
+.form-status-message:empty {
+    display: none;
+}
+
+.error-message { /* Para erros inline dos campos */
+    display: block;
+    color: #c62828;
+    font-size: 0.8em;
+    margin-top: 5px;
+    min-height: 1.2em; 
+}
+.form-group input.invalid,
+.form-group select.invalid,
+.form-group textarea.invalid {
+    border-color: #c62828;
+}
+.form-group input.invalid:focus,
+.form-group select.invalid:focus,
+.form-group textarea.invalid:focus {
+    box-shadow: 0 0 0 3px rgba(198, 40, 40, 0.15);
+}
+
+
+/* Estilos para o Stepper do Cadastro */
+.stepper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    padding: 0 10%; /* Dá um pouco de espaço nas laterais */
+}
+.step {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #e2e8f0;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.9em;
+    transition: background-color 0.3s, color 0.3s;
+    position: relative;
+    z-index: 1;
+}
+.step.active {
+    background-color: #007bff;
+    color: #fff;
+}
+.step.completed { /* Adicionar via JS quando a etapa for concluída */
+    background-color: #005c99; /* Um azul mais escuro para completado */
+    color: #fff;
+}
+.step-line {
+    flex-grow: 1;
+    height: 2px;
+    background-color: #e2e8f0;
+    margin: 0 -1px; /* Leve sobreposição para conectar com os círculos */
+}
+.stepper .step.active ~ .step-line, /* Linha após um step ativo */
+.stepper .step.active ~ .step .step-line,
+.stepper .step.completed ~ .step-line,
+.stepper .step.completed ~ .step .step-line {
+    background-color: #007bff;
+}
+
+.form-step {
+    display: none; /* Escondido por padrão */
+}
+.form-step.active {
+    display: block; /* Mostra a etapa ativa */
+}
+.form-step h3 {
+    text-align: center;
+    font-size: 1.3em;
+    margin-bottom: 20px;
+    color: #1a237e;
+}
+.step-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 25px;
+}
+.step-buttons .btn {
+    flex-basis: 48%; /* Para ocupar quase metade, permitindo gap */
+}
+.form-dica {
+    font-size: 0.8em;
+    color: #4b5563;
+    background-color: #f8fafc;
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 15px;
+    border-left: 3px solid #cbd5e1;
+}
+.security-tip {
+    border-left-color: #facc15; /* Amarelo para dica de segurança */
+    background-color: #fffbeb;
+}
+
+/* Tela de Cadastro Sucesso */
+.success-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 20px auto;
+}
+.success-actions {
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.proximos-passos {
+    margin-top: 30px;
+    text-align: left;
+    background-color: #f8fafc;
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+}
+.proximos-passos h3 {
+    font-size: 1.1em;
+    color: #1a237e;
+    margin-bottom: 10px;
+    text-align: center;
+}
+.proximos-passos ol {
+    list-style-position: inside;
+    padding-left: 0;
+}
+.proximos-passos li {
+    font-size: 0.9em;
+    color: #374151;
+    margin-bottom: 8px;
+    padding-left: 5px;
+}
+.proximos-passos li::marker {
+    font-weight: bold;
+    color: #007bff;
+}
+
+/* Media Queries para responsividade */
+@media (max-width: 600px) {
+    .login-main {
+        padding: 20px 0;
+    }
+    .auth-card {
+        padding: 20px;
+    }
+    .auth-card h2 {
+        font-size: 1.4em;
+    }
+    .auth-subtitle {
+        font-size: 0.9em;
+        margin-bottom: 20px;
+    }
+    .stepper {
+        padding: 0 5%;
+    }
+    .step {
+        width: 26px;
+        height: 26px;
+        font-size: 0.8em;
+    }
+    .step-buttons .btn {
+        flex-basis: 100%; /* Botões empilhados em telas muito pequenas */
+    }
+    .step-buttons .btn:first-child {
+        margin-bottom: 10px;
+    }
+}
