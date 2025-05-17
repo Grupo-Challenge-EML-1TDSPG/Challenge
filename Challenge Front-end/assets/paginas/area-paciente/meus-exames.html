@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meus Exames - SimplifyHC</title>
+    <link rel="shortcut icon" href="../../img/icons/icone-site.ico" type="image/x-icon">
     <link rel="stylesheet" href="../../../assets/css/style.css">
     <link rel="stylesheet" href="../../../assets/css/area-paciente.css">
-    <link rel="stylesheet" href="../../../assets/css/accessibility.css">
-    <link rel="stylesheet" href="../../../assets/css/interactive-guide.css">
+    <link rel="stylesheet" href="../../../assets/css/guia-interativo.css">
     <script src="../../../assets/js/script.js" defer></script>
     <script src="../../../assets/js/dados-pacientes.js" defer></script>
     <script src="../../../assets/js/area-paciente.js" defer></script>
-    <script src="../../../assets/js/accessibility.js" defer></script>
-    <script src="../../../assets/js/interactive-guide.js" defer></script>
+    <script src="../../../assets/js/guia-interativo.js" defer></script>
 </head>
+
 <body class="area-paciente-active">
 
     <header>
@@ -24,7 +25,8 @@
                     <span>SimplifyHC</span>
                 </a>
             </div>
-             <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="primary-navigation">
+            <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false"
+                aria-controls="primary-navigation">
                 <img src="../../../assets/img/icons/icone-botao.png" alt="Menu" class="menu-icon-img">
             </button>
             <nav id="primary-navigation" aria-hidden="true" aria-label="Navegação principal">
@@ -35,7 +37,8 @@
                     <li><a href="../integrantes.html">Integrantes</a></li>
                     <li><a href="../faq.html">FAQ</a></li>
                     <li><a href="../contato.html">Contato</a></li>
-                    <li class="nav-item-login"><a href="./meu-perfil.html" class="btn-nav-login active">Meu Perfil</a></li>
+                    <li class="nav-item-login"><a href="./meu-perfil.html" class="btn-nav-login active">Meu Perfil</a>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -61,15 +64,12 @@
         <section class="paciente-content-area">
             <div class="content-header">
                 <h2>Meus Exames</h2>
-                <!-- Poderia ter filtros aqui no futuro -->
             </div>
 
             <div class="lista-itens" id="listaExamesContainer">
                 <!-- Placeholder para quando não há exames ou estão carregando -->
-                <div id="examesPlaceholder" class="placeholder-content hidden">
-                    <img src="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23777'%3E%3Cpath d='M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zM6 20V4h7v5h5v11H6z'/%3E%3C/svg%3E" alt="Ícone de Exames" class="placeholder-icon">
-                    <p>Nenhum exame encontrado</p>
-                    <p>Você não possui exames registrados no sistema.</p>
+                <div class="placeholder-content hidden" id="examesPlaceholder">
+                    <!-- O JS vai popular isso -->
                 </div>
                 <table class="tabela-itens hidden" id="tabelaExames"> <!-- hidden por padrão, JS mostra -->
                     <thead>
@@ -92,7 +92,8 @@
                     <li>Os resultados dos exames laboratoriais ficam disponíveis em até 48h após a realização.</li>
                     <li>Para exames de imagem, os laudos podem demorar até 72h.</li>
                     <li>Os resultados ficam disponíveis permanentemente em sua conta para consulta.</li>
-                    <li>Em caso de dúvidas sobre os resultados, consulte seu médico. Não interprete os resultados sozinho.</li>
+                    <li>Em caso de dúvidas sobre os resultados, consulte seu médico. Não interprete os resultados
+                        sozinho.</li>
                 </ul>
             </div>
         </section>
@@ -104,9 +105,14 @@
                 <h3>SimplifyHC</h3>
                 <p>Simplificando o acesso à saúde para todos.</p>
                 <div class="social-icons">
-                    <a href="https://www.youtube.com/user/RedeLucyMontoro" title="Youtube da Rede Lucy Montoro" target="_blank" rel="noopener"><img src="../../../assets/img/icons/icone-youtube.png" alt="Ícone Youtube"></a>
-                    <a href="https://www.instagram.com/redelucymontoro/" title="Instagram da Rede Lucy Montoro" target="_blank" rel="noopener"><img src="../../../assets/img/icons/icone-instagram.png" alt="Ícone Instagram"></a>
-                    <a href="https://twitter.com/redelucymontoro" title="Twitter da Rede Lucy Montoro" target="_blank" rel="noopener"><img src="../../../assets/img/icons/icone-twitter.png" alt="Ícone Twitter"></a>
+                    <a href="https://www.youtube.com/user/RedeLucyMontoro" title="Youtube da Rede Lucy Montoro"
+                        target="_blank" rel="noopener"><img src="../../../assets/img/icons/icone-youtube.png"
+                            alt="Ícone Youtube"></a>
+                    <a href="https://www.instagram.com/redelucymontoro/" title="Instagram da Rede Lucy Montoro"
+                        target="_blank" rel="noopener"><img src="../../../assets/img/icons/icone-instagram.png"
+                            alt="Ícone Instagram"></a>
+                    <a href="https://twitter.com/redelucymontoro" title="Twitter da Rede Lucy Montoro" target="_blank"
+                        rel="noopener"><img src="../../../assets/img/icons/icone-twitter.png" alt="Ícone Twitter"></a>
                 </div>
             </div>
             <div class="footer-column links">
@@ -122,7 +128,7 @@
             </div>
             <div class="footer-column links">
                 <h4>Serviços Paciente</h4>
-                 <ul>
+                <ul>
                     <li><a href="./meus-exames.html">Resultados de Exames</a></li>
                     <li><a href="./minhas-receitas.html">Receitas Médicas</a></li>
                     <li><a href="./minhas-consultas.html">Agendamento</a></li>
@@ -144,11 +150,11 @@
         </div>
     </footer>
 
-    <div id="accessibility-widget-container"></div>
-    <div id="interactive-guide-container"></div>
     <div class="floating-buttons">
-        <button class="floating-btn accessibility-btn" id="accessibilityMenuButton" aria-label="Abrir menu de acessibilidade">♿</button>
+        <a href="#" class="floating-btn accessibility-btn" id="toggleGuideFloatingButton" role="button"
+            aria-label="Guia Interativo">♿</a>
     </div>
 
 </body>
+
 </html>

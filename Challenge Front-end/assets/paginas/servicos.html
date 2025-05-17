@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nossos Serviços - SimplifyHC</title>
+    <link rel="shortcut icon" href="../img/icons/icone-site.ico" type="image/x-icon">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/servicos.css"> 
     <script src="../js/script.js" defer></script>
@@ -29,7 +30,7 @@
                     <li><a href="../paginas/integrantes.html">Integrantes</a></li>
                     <li><a href="../paginas/faq.html">FAQ</a></li>
                     <li><a href="../paginas/contato.html">Contato</a></li>
-                    <li class="nav-item-login"><a href="#" class="btn-nav-login">Entrar</a></li>
+                    <li class="nav-item-login"><a href="../paginas/area-paciente/meu-perfil.html" class="btn-nav-login">Entrar</a></li>
                 </ul>
             </nav>
         </div>
@@ -54,7 +55,7 @@
                         <div class="servico-card-content">
                             <h3>Agendamento Online</h3>
                             <p>Marque consultas e exames diretamente pelo nosso portal, sem precisar ligar ou ir ao hospital.</p>
-                            <a href="#agendamento-detalhes" class="btn-saiba-mais">Agendar agora <span class="arrow-icon">→</span></a>
+                            <a href="./area-paciente/minhas-consultas.html" class="btn-saiba-mais">Agendar agora <span class="arrow-icon">→</span></a>
                         </div>
                     </div>
                     <div class="servico-card-pagina">
@@ -64,7 +65,7 @@
                         <div class="servico-card-content">
                             <h3>Teleconsulta</h3>
                             <p>Atendimento médico online com especialistas do HC, sem sair de casa e com a mesma qualidade.</p>
-                            <a href="#teleconsulta-detalhes" class="btn-saiba-mais">Conhecer serviço <span class="arrow-icon">→</span></a>
+                            <a href="./area-paciente/minhas-consultas.html" class="btn-saiba-mais">Conhecer serviço <span class="arrow-icon">→</span></a>
                         </div>
                     </div>
                     <div class="servico-card-pagina">
@@ -74,7 +75,7 @@
                         <div class="servico-card-content">
                             <h3>Resultados de Exames</h3>
                             <p>Acesse seus resultados de exames pelo portal, disponíveis 24h após a coleta.</p>
-                            <a href="#exames-detalhes" class="btn-saiba-mais">Ver meus exames <span class="arrow-icon">→</span></a>
+                            <a href="./area-paciente/meus-exames.html" class="btn-saiba-mais">Ver meus exames <span class="arrow-icon">→</span></a>
                         </div>
                     </div>
                     <div class="servico-card-pagina">
@@ -94,7 +95,7 @@
                         <div class="servico-card-content">
                             <h3>Especialidades</h3>
                             <p>Mais de 40 especialidades médicas com profissionais renomados e equipamentos de última geração.</p>
-                            <a href="#especialidades-detalhes" class="btn-saiba-mais">Conhecer especialidades <span class="arrow-icon">→</span></a>
+                            <a href="../paginas/hospitais.html#lista-unidades" class="btn-saiba-mais">Conhecer especialidades <span class="arrow-icon">→</span></a>
                         </div>
                     </div>
                     <div class="servico-card-pagina">
@@ -189,10 +190,10 @@
             <div class="footer-column links">
                 <h4>Serviços</h4>
                 <ul>
-                    <li><a href="#">Resultados de Exames</a></li>
-                    <li><a href="#">Receitas Médicas</a></li>
-                    <li><a href="#">Agendamento</a></li>
-                    <li><a href="#">Teleconsulta</a></li>
+                    <li><a href="./area-paciente/meus-exames.html">Resultados de Exames</a></li>
+                    <li><a href="./area-paciente/minhas-receitas.html">Receitas Médicas</a></li>
+                    <li><a href="./area-paciente/minhas-consultas.html">Agendamento</a></li>
+                    <li><a href="./area-paciente/minhas-consultas.html">Teleconsulta</a></li>
                 </ul>
             </div>
             <div class="footer-column contact">
@@ -211,8 +212,7 @@
     </footer>
 
     <div class="floating-buttons">
-        <a href="#" class="floating-btn accessibility-btn" aria-label="Acessibilidade">♿</a>
-        <a href="#" class="floating-btn chat-btn" aria-label="Chat">💬</a>
+        <a href="#" class="floating-btn accessibility-btn" id="toggleGuideFloatingButton" role="button" aria-label="Guia Interativo">♿</a>
     </div>
 
 </body>

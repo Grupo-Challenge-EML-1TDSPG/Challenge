@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minhas Receitas - SimplifyHC</title>
+    <link rel="shortcut icon" href="../../img/icons/icone-site.ico" type="image/x-icon">
     <link rel="stylesheet" href="../../../assets/css/style.css">
     <link rel="stylesheet" href="../../../assets/css/area-paciente.css">
-    <link rel="stylesheet" href="../../../assets/css/accessibility.css">
-    <link rel="stylesheet" href="../../../assets/css/interactive-guide.css">
+    <link rel="stylesheet" href="../../../assets/css/guia-interativo.css">
     <script src="../../../assets/js/script.js" defer></script>
     <script src="../../../assets/js/dados-pacientes.js" defer></script>
     <script src="../../../assets/js/area-paciente.js" defer></script>
-    <script src="../../../assets/js/accessibility.js" defer></script>
-    <script src="../../../assets/js/interactive-guide.js" defer></script>
+    <script src="../../../assets/js/guia-interativo.js" defer></script>
 </head>
+
 <body class="area-paciente-active">
 
     <header>
@@ -24,7 +25,8 @@
                     <span>SimplifyHC</span>
                 </a>
             </div>
-            <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="primary-navigation">
+            <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false"
+                aria-controls="primary-navigation">
                 <img src="../../../assets/img/icons/icone-botao.png" alt="Menu" class="menu-icon-img">
             </button>
             <nav id="primary-navigation" aria-hidden="true" aria-label="Navegação principal">
@@ -35,7 +37,8 @@
                     <li><a href="../integrantes.html">Integrantes</a></li>
                     <li><a href="../faq.html">FAQ</a></li>
                     <li><a href="../contato.html">Contato</a></li>
-                    <li class="nav-item-login"><a href="./meu-perfil.html" class="btn-nav-login active">Meu Perfil</a></li>
+                    <li class="nav-item-login"><a href="./meu-perfil.html" class="btn-nav-login active">Meu Perfil</a>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -51,7 +54,8 @@
                 <ul>
                     <li><a href="./meu-perfil.html"><span class="nav-icon">👤</span> Meus Dados</a></li>
                     <li><a href="./meus-exames.html"><span class="nav-icon">📄</span> Exames</a></li>
-                    <li><a href="./minhas-receitas.html" class="active"><span class="nav-icon">💊</span> Receitas</a></li>
+                    <li><a href="./minhas-receitas.html" class="active"><span class="nav-icon">💊</span> Receitas</a>
+                    </li>
                     <li><a href="./minhas-consultas.html"><span class="nav-icon">📅</span> Consultas</a></li>
                     <li><a href="#" id="linkSair"><span class="nav-icon">🚪</span> Sair</a></li>
                 </ul>
@@ -66,9 +70,8 @@
 
             <div class="lista-itens" id="listaReceitasContainer">
                 <!-- Placeholder para quando não há receitas -->
-                 <div class="placeholder-content" id="receitasPlaceholder">
-                    <img src="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23777'%3E%3Cpath d='M20 6h-4V4c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-6-2h4v2h-4V4zm-6 2V4h4v2H8zm12 14H4V8h16v12z'/%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M13 14h-2v3H8v-3H6v-2h2V9h3v3h2v2zm-3-3V9H8v2h2zm2 0V9h2v2h-2z' fill='%23CCC'/%3E%3C/svg%3E" alt="Maleta de Receitas" class="placeholder-icon">
-                    <p>Você não possui receitas médicas ou elas ainda não foram carregadas.</p>
+                <div class="placeholder-content hidden" id="receitasPlaceholder">
+                    <!-- O JS vai popular isso -->
                 </div>
                 <!-- Cards de receitas serão inseridos aqui pelo JS -->
             </div>
@@ -77,9 +80,11 @@
                 <h4>Informações Importantes</h4>
                 <ul>
                     <li>As receitas médicas digitais têm validade determinada pelo médico prescritor.</li>
-                    <li>Medicamentos controlados (tarja preta/vermelha com retenção) podem exigir receita física ou seguir normativas específicas para dispensação digital.</li>
+                    <li>Medicamentos controlados (tarja preta/vermelha com retenção) podem exigir receita física ou
+                        seguir normativas específicas para dispensação digital.</li>
                     <li>Você pode baixar suas receitas ativas em formato PDF para apresentar na farmácia.</li>
-                    <li>Receitas expiradas ficam disponíveis apenas para consulta e não podem ser utilizadas para compra de medicamentos.</li>
+                    <li>Receitas expiradas ficam disponíveis apenas para consulta e não podem ser utilizadas para compra
+                        de medicamentos.</li>
                     <li>Siga sempre a orientação do seu médico sobre o uso de medicamentos.</li>
                 </ul>
             </div>
@@ -91,10 +96,15 @@
             <div class="footer-column about">
                 <h3>SimplifyHC</h3>
                 <p>Simplificando o acesso à saúde para todos.</p>
-                 <div class="social-icons">
-                    <a href="https://www.youtube.com/user/RedeLucyMontoro" title="Youtube da Rede Lucy Montoro" target="_blank" rel="noopener"><img src="../../../assets/img/icons/icone-youtube.png" alt="Ícone Youtube"></a>
-                    <a href="https://www.instagram.com/redelucymontoro/" title="Instagram da Rede Lucy Montoro" target="_blank" rel="noopener"><img src="../../../assets/img/icons/icone-instagram.png" alt="Ícone Instagram"></a>
-                    <a href="https://twitter.com/redelucymontoro" title="Twitter da Rede Lucy Montoro" target="_blank" rel="noopener"><img src="../../../assets/img/icons/icone-twitter.png" alt="Ícone Twitter"></a>
+                <div class="social-icons">
+                    <a href="https://www.youtube.com/user/RedeLucyMontoro" title="Youtube da Rede Lucy Montoro"
+                        target="_blank" rel="noopener"><img src="../../../assets/img/icons/icone-youtube.png"
+                            alt="Ícone Youtube"></a>
+                    <a href="https://www.instagram.com/redelucymontoro/" title="Instagram da Rede Lucy Montoro"
+                        target="_blank" rel="noopener"><img src="../../../assets/img/icons/icone-instagram.png"
+                            alt="Ícone Instagram"></a>
+                    <a href="https://twitter.com/redelucymontoro" title="Twitter da Rede Lucy Montoro" target="_blank"
+                        rel="noopener"><img src="../../../assets/img/icons/icone-twitter.png" alt="Ícone Twitter"></a>
                 </div>
             </div>
             <div class="footer-column links">
@@ -132,11 +142,10 @@
         </div>
     </footer>
 
-    <div id="accessibility-widget-container"></div>
-    <div id="interactive-guide-container"></div>
     <div class="floating-buttons">
-        <button class="floating-btn accessibility-btn" id="accessibilityMenuButton" aria-label="Abrir menu de acessibilidade">♿</button>
+        <a href="#" class="floating-btn accessibility-btn" id="toggleGuideFloatingButton" role="button" aria-label="Guia Interativo">♿</a>
     </div>
 
 </body>
+
 </html>

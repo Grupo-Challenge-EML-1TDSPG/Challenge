@@ -363,22 +363,174 @@ input:checked + .slider:before { transform: translateX(24px); }
 
 .placeholder-content {
     text-align: center;
-    padding: 30px 15px;
+    padding: 40px 20px; /* Aumentar padding para mais destaque */
     color: #6c757d;
     background-color: #f8f9fa;
     border-radius: 6px;
     border: 1px dashed #ced4da;
-    margin-top: 20px; /* Adicionar margem para quando for visível */
+    margin-top: 20px;
 }
+.placeholder-content.hidden { /* Garante que o placeholder não ocupe espaço quando escondido */
+    display: none !important;
+}
+
 .placeholder-content .placeholder-icon {
-    width: 40px; /* Reduzir um pouco o ícone do placeholder */
-    height: 40px;
-    margin: 0 auto 10px auto; /* Ajustar margem */
-    opacity: 0.5; /* Mais sutil */
+    width: 50px; /* Ícone um pouco maior */
+    height: 50px;
+    margin: 0 auto 15px auto; /* Mais espaço abaixo do ícone */
+    opacity: 0.6;
 }
 .placeholder-content p {
-    font-size: 0.95em;
+    font-size: 1em; /* Texto principal do placeholder */
     margin-bottom: 5px;
+}
+.placeholder-content p small { /* Para a submensagem */
+    font-size: 0.85em;
+    color: #868e96;
+}
+
+/* Quando a lista de itens está vazia e o placeholder está visível,
+   a lista em si não deve ocupar espaço. O JS já adiciona 'hidden' ao placeholder
+   quando a lista tem itens. Aqui, garantimos que a lista não tenha padding/margin
+   indesejado se estiver vazia antes do JS popular ou se o placeholder for mostrado. */
+.lista-itens:empty {
+    padding: 0;
+    margin: 0;
+    border: none;
+}
+
+/* Estilos para o Modal de Agendamento */
+dialog.modal-overlay, /* Para quando <dialog> é usado nativamente */
+.modal-overlay.active { /* Para o fallback JS com classe .active */
+    /* Estilo do Fundo/Overlay */
+    position: fixed; /* Fixo na viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.0); /* Fundo escuro translúcido */
+    display: flex; /* Para centralizar o .modal-content */
+    justify-content: center;
+    padding: 20px; /* Espaçamento para o conteúdo não colar nas bordas em telas pequenas */
+    z-index: 10050; /* Muito alto para ficar sobre tudo, incluindo o guia interativo */
+    border: none; /* Remove a borda padrão do <dialog> */
+    box-sizing: border-box;
+}
+
+/* Remove o display padrão do <dialog> quando não está aberto via JS (se não usar o atributo 'open' no HTML) */
+dialog.modal-overlay:not([open]) {
+    display: none;
+}
+
+
+.modal-content {
+    background-color: #fff;
+    padding: 25px 30px; /* Aumentar padding interno */
+    border-radius: 10px; /* Bordas mais arredondadas */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
+    width: 100%;
+    max-width: 550px; /* Largura máxima do modal */
+    position: relative; /* Para posicionar o botão de fechar */
+    overflow-y: auto; /* Adiciona scroll se o conteúdo for muito alto */
+    max-height: 90vh; /* Altura máxima para evitar que o modal seja maior que a tela */
+    text-align: left; /* Alinha o texto à esquerda por padrão */
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 1.8em; /* Tamanho maior para o '×' */
+    line-height: 1;
+    color: #888;
+    cursor: pointer;
+    padding: 5px;
+}
+.modal-close-btn:hover {
+    color: #333;
+}
+
+.modal-content h3 { /* #modalAgendarTitle */
+    font-size: 1.4em; /* Título maior */
+    color: #1a237e;
+    margin-top: 0;
+    margin-bottom: 25px; /* Mais espaço abaixo do título */
+    text-align: center; /* Centraliza o título do modal */
+}
+
+/* Estilos para os grupos de formulário dentro do modal */
+#formAgendarConsulta .form-group {
+    margin-bottom: 18px; /* Espaçamento entre os campos */
+}
+
+#formAgendarConsulta label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    font-size: 0.9em;
+    color: #454545;
+}
+
+#formAgendarConsulta input[type="text"],
+#formAgendarConsulta input[type="datetime-local"],
+#formAgendarConsulta select,
+#formAgendarConsulta textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px; /* Bordas arredondadas para os campos */
+    font-size: 0.95em;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#formAgendarConsulta input[type="text"]:focus,
+#formAgendarConsulta input[type="datetime-local"]:focus,
+#formAgendarConsulta select:focus,
+#formAgendarConsulta textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+    outline: none;
+}
+
+#formAgendarConsulta textarea {
+    resize: vertical; /* Permite apenas redimensionamento vertical */
+    min-height: 80px;
+}
+
+#formAgendarConsulta button[type="submit"].btn-primary {
+    display: block; /* Faz o botão ocupar a largura total */
+    width: 100%;
+    padding: 12px 20px; /* Botão maior */
+    font-size: 1em;
+    margin-top: 10px; /* Espaço acima do botão */
+}
+
+/* Mensagem de status do agendamento */
+.form-status-message {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    text-align: center;
+}
+.form-status-message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+.form-status-message.error { /* Adicione uma classe para erros se necessário */
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Adicionado para o ícone dentro do botão de agendar */
+.content-header .btn .nav-icon.icon-inverted-margin {
+    filter: invert(1);
+    margin-right: 8px;
 }
 
 /* Ícone invertido para botão "Agendar Nova Consulta" */

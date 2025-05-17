@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     setupLogout();
-    setupTabs(); // Configura abas para Minhas Consultas
+    setupTabs();
 
     // --- MEUS EXAMES ---
     if (path.includes('meus-exames.html') && pacienteLogado) {
@@ -42,7 +42,7 @@ function handleSidebarUserName(sidebarUserNameEl, pacienteLogado) {
 
 function redirectIfNotLogged(pacienteLogado, path) {
     if (!pacienteLogado && path.includes('/area-paciente/')) {
-        window.location.href = '../cadastro-login.html';
+        window.location.href = '../cadastro-login.html'; // Ajuste o caminho se necessário
         return true;
     }
     return false;
@@ -69,7 +69,6 @@ function popularCheckbox(id, valorBooleano) {
 function preencherListaResumo(ulId, items, mensagemVazia, formatadorItem) {
     const ulElement = document.getElementById(ulId);
     if (!ulElement) return;
-
     ulElement.innerHTML = '';
     if (items && items.length > 0) {
         items.forEach(item => {
@@ -109,7 +108,7 @@ function renderPerfilPage(pacienteLogado) {
     );
 }
 
-function setupPerfilEdit(pacienteLogado) {
+function setupPerfilEdit(pacienteLogadoObjeto) {
     const editProfileButton = document.getElementById('editProfileButton');
     const saveProfileButton = document.getElementById('saveProfileButton');
     const cancelEditButton = document.getElementById('cancelEditButton');
@@ -117,41 +116,43 @@ function setupPerfilEdit(pacienteLogado) {
     const editableFieldsIds = ['userEmail', 'userTelefone', 'userTelegramId', 'notifEmail', 'notifTelegram', 'lembreteConsulta'];
     let originalValues = {};
 
-    if(saveProfileButton) saveProfileButton.classList.add('hidden'); // Inicia escondido
-    if(cancelEditButton) cancelEditButton.classList.add('hidden'); // Inicia escondido
-    if(editProfileButton) editProfileButton.classList.remove('hidden'); // Inicia visível
+    // Garante o estado inicial correto dos botões
+    if(saveProfileButton) saveProfileButton.style.display = 'none'; // Usar style.display para consistência com JS
+    if(cancelEditButton) cancelEditButton.style.display = 'none';
+    if(editProfileButton) editProfileButton.style.display = 'inline-block'; // ou 'block' dependendo do seu CSS
 
     function toggleEditMode(isEditing) {
         editableFieldsIds.forEach(id => {
             const field = document.getElementById(id);
             if (field) {
                 field.disabled = !isEditing;
-                if (isEditing && (field.type === 'text' || field.type === 'email' || field.type === 'tel')) {
-                    originalValues[id] = field.value;
-                } else if (isEditing && field.type === 'checkbox') {
-                    originalValues[id] = field.checked;
+                if (isEditing) {
+                    if (field.type === 'checkbox') {
+                        originalValues[id] = field.checked;
+                    } else {
+                        originalValues[id] = field.value;
+                    }
                 }
             }
         });
+        // Mantém campos não editáveis sempre desabilitados
         ['userName', 'userCpf', 'userDob'].forEach(id => {
             const field = document.getElementById(id);
             if (field) field.disabled = true;
         });
 
-        if (saveProfileButton) isEditing ? saveProfileButton.classList.remove('hidden') : saveProfileButton.classList.add('hidden');
-        if (cancelEditButton) isEditing ? cancelEditButton.classList.remove('hidden') : cancelEditButton.classList.add('hidden');
-        if (editProfileButton) isEditing ? editProfileButton.classList.add('hidden') : editProfileButton.classList.remove('hidden');
-
+        if (editProfileButton) editProfileButton.style.display = isEditing ? 'none' : 'inline-block';
+        if (saveProfileButton) saveProfileButton.style.display = isEditing ? 'inline-block' : 'none';
+        if (cancelEditButton) cancelEditButton.style.display = isEditing ? 'inline-block' : 'none';
+        
         if (formInformacoesPessoais) {
-            if (isEditing) {
-                formInformacoesPessoais.classList.add('edit-mode');
-            } else {
-                formInformacoesPessoais.classList.remove('edit-mode');
-            }
+            // A classe 'edit-mode' pode ser usada para estilização adicional se necessário, mas não para desabilitar.
+            // A desabilitação já é feita diretamente nos campos.
+            isEditing ? formInformacoesPessoais.classList.add('edit-mode') : formInformacoesPessoais.classList.remove('edit-mode');
         }
     }
 
-    if (editProfileButton && formInformacoesPessoais) {
+    if (editProfileButton) {
         editProfileButton.addEventListener('click', function () {
             toggleEditMode(true);
         });
@@ -172,27 +173,29 @@ function setupPerfilEdit(pacienteLogado) {
         });
     }
     if (saveProfileButton) {
-        saveProfileButton.addEventListener('click', function () {
-            if (pacienteLogado) {
-                pacienteLogado.email = document.getElementById('userEmail').value;
-                pacienteLogado.telefone = document.getElementById('userTelefone').value;
-                pacienteLogado.telegramId = document.getElementById('userTelegramId').value;
-
-                if (!pacienteLogado.notificacoes) pacienteLogado.notificacoes = {};
-                pacienteLogado.notificacoes.email = document.getElementById('notifEmail').checked;
-                pacienteLogado.notificacoes.telegram = document.getElementById('notifTelegram').checked;
-                pacienteLogado.notificacoes.lembreteConsulta = document.getElementById('lembreteConsulta').checked;
-
-                const cpfLimpo = pacienteLogado.cpf.replace(/\D/g, "");
-                if (window.dadosPacientes?.[cpfLimpo]) {
-                    window.dadosPacientes[cpfLimpo] = pacienteLogado;
-                    localStorage.setItem('dadosPacientesStorage', JSON.stringify(window.dadosPacientes));
+        saveProfileButton.addEventListener('click', function () { // Mudado para 'click' já que o form tem onsubmit="return false;"
+            if (pacienteLogadoObjeto) {
+                const pacienteAtualizado = JSON.parse(JSON.stringify(pacienteLogadoObjeto)); // Cria cópia profunda
+                pacienteAtualizado.email = document.getElementById('userEmail').value;
+                pacienteAtualizado.telefone = document.getElementById('userTelefone').value;
+                pacienteAtualizado.telegramId = document.getElementById('userTelegramId').value;
+                if (!pacienteAtualizado.notificacoes) pacienteAtualizado.notificacoes = {};
+                pacienteAtualizado.notificacoes.email = document.getElementById('notifEmail').checked;
+                pacienteAtualizado.notificacoes.telegram = document.getElementById('notifTelegram').checked;
+                pacienteAtualizado.notificacoes.lembreteConsulta = document.getElementById('lembreteConsulta').checked;
+                
+                if (typeof atualizarDadosPacienteLogado === "function") { // Função do dados-pacientes.js
+                    atualizarDadosPacienteLogado(pacienteAtualizado);
+                     // Atualiza o objeto pacienteLogadoObjeto local para refletir as mudanças
+                    Object.assign(pacienteLogadoObjeto, pacienteAtualizado);
                 }
-                alert('Informações salvas com sucesso!'); // Alterado de console.log para alert
+                alert('Informações salvas com sucesso!'); // Feedback para o usuário
                 toggleEditMode(false);
             }
         });
     }
+     // Inicialmente, os campos não são editáveis
+    toggleEditMode(false);
 }
 
 function setupLogout() {
@@ -200,9 +203,10 @@ function setupLogout() {
     if (linkSair) {
         linkSair.addEventListener('click', function (e) {
             e.preventDefault();
-            if (typeof simularLogout === 'function') {
+            if (typeof simularLogout === 'function') { // Função do dados-pacientes.js
                 simularLogout();
-                window.location.href = '../../../index.html';
+                // Redireciona para a página de login ou inicial após logout
+                window.location.href = '../../../index.html'; // Ajuste o caminho se necessário
             }
         });
     }
@@ -211,18 +215,23 @@ function setupLogout() {
 function setupTabs() {
     const tabLinks = document.querySelectorAll('.consultas-tabs .tab-link');
     const tabContents = document.querySelectorAll('.paciente-content-area .tab-content');
+
     tabLinks.forEach(link => {
         link.addEventListener('click', function () {
             const targetTabId = this.getAttribute('data-tab');
+
             tabLinks.forEach(l => l.classList.remove('active'));
-            tabContents.forEach(c => c.classList.remove('active')); // Esconde todos os conteúdos de aba
+            tabContents.forEach(c => c.classList.remove('active'));
+
             this.classList.add('active');
             const targetContent = document.getElementById(targetTabId);
             if (targetContent) {
-                targetContent.classList.add('active'); // Mostra o conteúdo da aba ativa
+                targetContent.classList.add('active');
+                
+                // Renderiza o conteúdo da aba clicada
                 const paciente = getDadosUsuarioLogado();
-                if(paciente) {
-                    if(targetTabId === 'proximas-consultas-content') {
+                if (paciente) {
+                    if (targetTabId === 'proximas-consultas-content') {
                         renderProximasConsultas(paciente,
                             document.getElementById('proximasConsultasList'),
                             document.getElementById('proximasConsultasPlaceholder')
@@ -239,36 +248,34 @@ function setupTabs() {
     });
 }
 
+
+function setPlaceholderContent(placeholderElement, iconPathOrSvg, mainMessage, subMessage = "") {
+    if (placeholderElement) {
+        placeholderElement.innerHTML = `
+            <img src="${iconPathOrSvg}" alt="${mainMessage}" class="placeholder-icon">
+            <p>${mainMessage}</p>
+            ${subMessage ? `<p><small>${subMessage}</small></p>` : ''}
+        `;
+        placeholderElement.classList.remove('hidden');
+    }
+}
+
 function renderMeusExames(pacienteLogado) {
     const tabelaExamesBody = document.querySelector('#tabelaExames tbody');
     const examesPlaceholder = document.getElementById('examesPlaceholder');
     const tabelaExames = document.getElementById('tabelaExames');
 
     if (!tabelaExamesBody || !examesPlaceholder || !tabelaExames) return;
-    
-    // Primeiro, esconde tanto a tabela quanto o placeholder
-    tabelaExames.classList.add('hidden');
-    examesPlaceholder.classList.add('hidden');
-    
-    if (!pacienteLogado?.ultimosExames || pacienteLogado.ultimosExames.length === 0) {
-        // Se não há exames, mostra o placeholder e mantém a tabela escondida
-        examesPlaceholder.classList.remove('hidden');
-        return;
-    }
 
-    // Se chegou aqui, há exames para mostrar
-    tabelaExames.classList.remove('hidden');
-    tabelaExamesBody.innerHTML = '';
+    tabelaExamesBody.innerHTML = ''; 
 
-    if (pacienteLogado?.ultimosExames?.length > 0) {
-        // Se há exames, mostra a tabela e esconde o placeholder
-        tabelaExames.classList.remove('hidden');
+    if (pacienteLogado.ultimosExames && pacienteLogado.ultimosExames.length > 0) {
         pacienteLogado.ultimosExames.forEach(exame => {
             const tr = document.createElement('tr');
             let pdfLinkHtml = 'N/A';
             if (exame.pdfLink && exame.pdfLink !== '#') {
                 pdfLinkHtml = `<a href="${exame.pdfLink}" class="btn btn-secondary btn-sm" download>Baixar PDF</a>`;
-            } else if (exame.pdfLink === '#') {
+            } else if (exame.pdfLink === '#') { // Para links de placeholder
                 pdfLinkHtml = `<a href="#" class="btn btn-secondary btn-sm" onclick="alert('Link de download indisponível no momento.'); return false;">Baixar PDF</a>`;
             }
             tr.innerHTML = `
@@ -282,33 +289,33 @@ function renderMeusExames(pacienteLogado) {
             `;
             tabelaExamesBody.appendChild(tr);
         });
+        examesPlaceholder.classList.add('hidden');
+        tabelaExames.classList.remove('hidden');
     } else {
-        // Se não há exames, mostra o placeholder e esconde a tabela
-        examesPlaceholder.classList.remove('hidden');
+        const semExamesIcon = "../../../assets/img/icons/imagem-sem-dados.png";
+        setPlaceholderContent(examesPlaceholder, semExamesIcon, 'Você não possui exames registrados.');
+        tabelaExames.classList.add('hidden');
     }
 }
 
 function renderMinhasReceitas(pacienteLogado) {
     const receitasContainer = document.getElementById('listaReceitasContainer');
     const receitasPlaceholder = document.getElementById('receitasPlaceholder');
-    
     if (!receitasContainer || !receitasPlaceholder) return;
 
-    // Primeiro, esconde o placeholder
-    receitasPlaceholder.classList.add('hidden');
-    
     const currentRecipeCards = receitasContainer.querySelectorAll('.item-card');
     currentRecipeCards.forEach(card => card.remove());
 
-    if (pacienteLogado?.receitasAtivas?.length > 0) {
-        // Se há receitas, mantém o placeholder escondido
+    if (pacienteLogado.receitasAtivas && pacienteLogado.receitasAtivas.length > 0) {
+        receitasPlaceholder.classList.add('hidden'); // Esconde o placeholder
         pacienteLogado.receitasAtivas.forEach(receita => {
             const card = document.createElement('div');
             card.classList.add('item-card');
+            
             const [diaV, mesV, anoV] = receita.validade.split('/').map(Number);
             const dataValidade = new Date(anoV, mesV - 1, diaV);
             const hoje = new Date();
-            hoje.setHours(0, 0, 0, 0);
+            hoje.setHours(0, 0, 0, 0); // Zera a hora para comparar apenas a data
             const status = dataValidade < hoje ? 'Expirada' : 'Ativa';
             const statusClass = status === 'Ativa' ? 'ativa' : 'expirada';
 
@@ -330,17 +337,16 @@ function renderMinhasReceitas(pacienteLogado) {
             receitasContainer.appendChild(card);
         });
     } else {
-        // Se não há receitas, mostra o placeholder
-        receitasPlaceholder.classList.remove('hidden');
-        receitasPlaceholder.innerHTML = `
-            <img src="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23777'%3E%3Cpath d='M20 6h-4V4c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-6-2h4v2h-4V4zm-6 2V4h4v2H8zm12 14H4V8h16v12zM9 14H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2zm-8 4H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2zM5 8V6h14v2H5z'/%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.25 2.52.77-1.28-3.52-2.09V8H12z'/%3E%3C/svg%3E" alt="Maleta de Receitas" class="placeholder-icon">
-            <p>Você não possui receitas médicas.</p>`;
+        const semReceitasIcon = "../../../assets/img/icons/imagem-sem-dados.png";
+        setPlaceholderContent(receitasPlaceholder, semReceitasIcon, 'Você não possui receitas médicas.');
+        receitasPlaceholder.classList.remove('hidden'); // Garante que o placeholder seja mostrado
     }
 }
 
 function renderizarConsultaCard(consulta, isProxima = true) {
-    const isTeleconsulta = consulta.local?.toLowerCase().includes('teleconsulta') || false;
+    const isTeleconsulta = consulta.local && consulta.local.toLowerCase().includes('teleconsulta');
     let actionsHtml = '';
+
     if (isProxima) {
         actionsHtml = `<a href="#" class="btn btn-secondary btn-sm cancelar-consulta-btn" data-consulta-id="${consulta.dataHora}-${consulta.medico.replace(/\s+/g, '')}">Cancelar</a>`;
         if (isTeleconsulta) {
@@ -348,9 +354,10 @@ function renderizarConsultaCard(consulta, isProxima = true) {
         } else {
             actionsHtml += `<a href="#" class="btn btn-secondary btn-sm ver-detalhes-btn">Ver Detalhes</a>`;
         }
-    } else {
+    } else { // Histórico
         actionsHtml = `<a href="#" class="btn btn-secondary btn-sm ver-resumo-btn">Ver Resumo</a>`;
     }
+
     return `
         <div class="item-card">
             <div class="item-card-header">
@@ -371,34 +378,37 @@ function renderizarConsultaCard(consulta, isProxima = true) {
 
 function renderProximasConsultas(pacienteLogado, listElement, placeholderElement) {
     if (!listElement || !placeholderElement) return;
-    listElement.innerHTML = '';
-    if (pacienteLogado.proximasConsultas && pacienteLogado.proximasConsultas.length > 0) {
-        pacienteLogado.proximasConsultas.forEach(consulta => {
+    listElement.innerHTML = ''; 
+    const consultas = Array.isArray(pacienteLogado?.proximasConsultas) ? pacienteLogado.proximasConsultas : [];
+
+    if (consultas.length > 0) {
+        consultas.forEach(consulta => {
             listElement.innerHTML += renderizarConsultaCard(consulta, true);
         });
         placeholderElement.classList.add('hidden');
+        listElement.classList.remove('hidden');
     } else {
-        placeholderElement.classList.remove('hidden');
-         placeholderElement.innerHTML = `
-            <img src="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23777'%3E%3Cpath d='M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM9 14H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2zm-8 4H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2zM5 8V6h14v2H5z'/%3E%3C/svg%3E" alt="Calendário Vazio" class="placeholder-icon">
-            <p>Sem consultas agendadas</p>
-            <p>Você não possui consultas agendadas para os próximos dias.</p>`;
+        const calendarioIcon = "../../../assets/img/icons/imagem-sem-dados.png"; 
+        setPlaceholderContent(placeholderElement, calendarioIcon, 'Sem consultas agendadas', 'Você não possui consultas agendadas para os próximos dias.');
+        listElement.classList.add('hidden');
     }
 }
 
 function renderHistoricoConsultas(pacienteLogado, listElement, placeholderElement) {
     if (!listElement || !placeholderElement) return;
     listElement.innerHTML = '';
-    if (pacienteLogado.historicoConsultas && pacienteLogado.historicoConsultas.length > 0) {
-        pacienteLogado.historicoConsultas.forEach(consulta => {
+    const historico = Array.isArray(pacienteLogado?.historicoConsultas) ? pacienteLogado.historicoConsultas : [];
+
+    if (historico.length > 0) {
+        historico.forEach(consulta => {
             listElement.innerHTML += renderizarConsultaCard(consulta, false);
         });
         placeholderElement.classList.add('hidden');
+        listElement.classList.remove('hidden');
     } else {
-        placeholderElement.classList.remove('hidden');
-        placeholderElement.innerHTML = `
-            <img src="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23777'%3E%3Cpath d='M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.25 2.52.77-1.28-3.52-2.09V8H12z'/%3E%3C/svg%3E" alt="Relógio de Histórico" class="placeholder-icon">
-            <p>Seu histórico de consultas está vazio.</p>`;
+        const relogioIcon = "../../../assets/img/icons/imagem-sem-dados.png";
+        setPlaceholderContent(placeholderElement, relogioIcon, 'Seu histórico de consultas está vazio.');
+        listElement.classList.add('hidden');
     }
 }
 
@@ -408,49 +418,77 @@ function renderMinhasConsultas(pacienteLogado) {
     const historicoConsultasList = document.getElementById('historicoConsultasList');
     const historicoConsultasPlaceholder = document.getElementById('historicoConsultasPlaceholder');
 
-    // Primeiro, esconde todos os placeholders
-    if (proximasConsultasPlaceholder) proximasConsultasPlaceholder.classList.add('hidden');
-    if (historicoConsultasPlaceholder) historicoConsultasPlaceholder.classList.add('hidden');
+    const activeTabLink = document.querySelector('.consultas-tabs .tab-link.active');
+    const activeTabId = activeTabLink ? activeTabLink.getAttribute('data-tab') : 'proximas-consultas-content';
 
-    if (proximasConsultasList) proximasConsultasList.innerHTML = '';
-    if (historicoConsultasList) historicoConsultasList.innerHTML = '';
-
-    // Renderiza as próximas consultas
-    if (pacienteLogado?.proximasConsultas?.length > 0) {
+    if (activeTabId === 'proximas-consultas-content') {
         renderProximasConsultas(pacienteLogado, proximasConsultasList, proximasConsultasPlaceholder);
-    } else if (proximasConsultasPlaceholder) {
-        proximasConsultasPlaceholder.classList.remove('hidden');
-    }
-
-    // Renderiza o histórico
-    if (pacienteLogado?.historicoConsultas?.length > 0) {
+        if (historicoConsultasList) historicoConsultasList.classList.add('hidden'); // Esconde a outra lista
+        renderHistoricoConsultas(pacienteLogado, document.createElement('div'), historicoConsultasPlaceholder); // Renderiza placeholder da outra aba
+    } else if (activeTabId === 'historico-consultas-content') {
         renderHistoricoConsultas(pacienteLogado, historicoConsultasList, historicoConsultasPlaceholder);
-    } else if (historicoConsultasPlaceholder) {
-        historicoConsultasPlaceholder.classList.remove('hidden');
+        if (proximasConsultasList) proximasConsultasList.classList.add('hidden'); // Esconde a outra lista
+        renderProximasConsultas(pacienteLogado, document.createElement('div'), proximasConsultasPlaceholder); // Renderiza placeholder da outra aba
     }
-
+    
     setupAgendamentoModal(pacienteLogado, proximasConsultasList, proximasConsultasPlaceholder);
     setupConsultasDelegation(pacienteLogado, proximasConsultasList, proximasConsultasPlaceholder, historicoConsultasList);
 }
 
-function setupAgendamentoModal(pacienteLogado, proximasConsultasListElement, proximasConsultasPlaceholderElement) {
+// Adicione esta função utilitária para calcular a largura da barra de rolagem
+function getScrollbarWidth() {
+    const outer = document.createElement('div');
+    outer.style.visibility = 'hidden';
+    outer.style.overflow = 'scroll';
+    document.body.appendChild(outer);
+    const inner = document.createElement('div');
+    outer.appendChild(inner);
+    const scrollbarWidth = (outer.offsetWidth - inner.offsetWidth);
+    outer.parentNode.removeChild(outer);
+    return scrollbarWidth;
+}
+
+// Substitua a função setupAgendamentoModal pelo novo código:
+function setupAgendamentoModal(pacienteLogadoObjeto, proximasConsultasListElement, proximasConsultasPlaceholderElement) {
     const modalAgendarConsulta = document.getElementById('modalAgendarConsulta');
     const agendarNovaConsultaBtn = document.getElementById('agendarNovaConsultaBtn');
     const closeModalBtn = modalAgendarConsulta ? modalAgendarConsulta.querySelector('.modal-close-btn') : null;
     const formAgendarConsulta = document.getElementById('formAgendarConsulta');
     const agendamentoStatus = document.getElementById('agendamentoStatus');
 
+    const scrollbarWidth = getScrollbarWidth();
+
+    function openModal() {
+        document.body.classList.add('guide-active-no-scroll');
+        if (scrollbarWidth > 0) {
+            document.body.style.paddingRight = `${scrollbarWidth}px`;
+        }
+
+        if (typeof modalAgendarConsulta.showModal === "function") {
+            modalAgendarConsulta.showModal();
+        } else {
+            modalAgendarConsulta.classList.add('active');
+            modalAgendarConsulta.setAttribute('aria-hidden', 'false');
+        }
+    }
+
+    function closeModal() {
+        if (formAgendarConsulta) formAgendarConsulta.reset();
+        if (agendamentoStatus) agendamentoStatus.textContent = '';
+
+        document.body.classList.remove('guide-active-no-scroll');
+        if (scrollbarWidth > 0) {
+            document.body.style.paddingRight = '';
+        }
+    }
+
     if (agendarNovaConsultaBtn && modalAgendarConsulta) {
         agendarNovaConsultaBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            if (typeof modalAgendarConsulta.showModal === "function") {
-                modalAgendarConsulta.showModal();
-            } else {
-                modalAgendarConsulta.classList.add('active');
-                modalAgendarConsulta.setAttribute('aria-hidden', 'false');
-            }
+            openModal();
         });
     }
+
     if (closeModalBtn && modalAgendarConsulta) {
         closeModalBtn.addEventListener('click', () => {
             if (typeof modalAgendarConsulta.close === "function") {
@@ -458,113 +496,113 @@ function setupAgendamentoModal(pacienteLogado, proximasConsultasListElement, pro
             } else {
                 modalAgendarConsulta.classList.remove('active');
                 modalAgendarConsulta.setAttribute('aria-hidden', 'true');
-                if (formAgendarConsulta) {
-                    formAgendarConsulta.reset();
-                }
-                if (agendamentoStatus) {
-                    agendamentoStatus.textContent = '';
-                }
-            }
-        });
-    }
-    if (modalAgendarConsulta && typeof modalAgendarConsulta.showModal !== "function") {
-        modalAgendarConsulta.addEventListener('click', (event) => {
-            if (event.target === modalAgendarConsulta) {
-                modalAgendarConsulta.classList.remove('active');
-                modalAgendarConsulta.setAttribute('aria-hidden', 'true');
-                if (formAgendarConsulta) formAgendarConsulta.reset();
-                if (agendamentoStatus) agendamentoStatus.textContent = '';
+                closeModal();
             }
         });
     }
 
-    if (formAgendarConsulta && pacienteLogado) {
+    if (modalAgendarConsulta) {
+        modalAgendarConsulta.addEventListener('close', closeModal);
+
+        modalAgendarConsulta.addEventListener('click', (event) => {
+            if (event.target === modalAgendarConsulta && typeof modalAgendarConsulta.showModal !== "function") {
+                modalAgendarConsulta.classList.remove('active');
+                modalAgendarConsulta.setAttribute('aria-hidden', 'true');
+                closeModal();
+            }
+        });
+    }
+
+    if (formAgendarConsulta && pacienteLogadoObjeto) {
         formAgendarConsulta.addEventListener('submit', function (e) {
             e.preventDefault();
             const novaConsulta = {
-                tipo: document.getElementById('tipoConsulta').value,
                 especialidade: document.getElementById('especialidadeConsulta').value,
                 medico: document.getElementById('medicoConsulta').value || 'A ser definido',
                 dataHora: formatarDataHora(document.getElementById('dataConsulta').value),
                 local: document.getElementById('localConsulta').value,
                 observacoes: document.getElementById('observacoesConsulta').value,
             };
-
-            if (!pacienteLogado.proximasConsultas) {
-                pacienteLogado.proximasConsultas = [];
+            const pacienteAtualizado = JSON.parse(JSON.stringify(pacienteLogadoObjeto));
+            if (!pacienteAtualizado.proximasConsultas) pacienteAtualizado.proximasConsultas = [];
+            pacienteAtualizado.proximasConsultas.unshift(novaConsulta);
+            if (typeof atualizarDadosPacienteLogado === "function") {
+                atualizarDadosPacienteLogado(pacienteAtualizado);
+                Object.assign(pacienteLogadoObjeto, pacienteAtualizado);
             }
-            pacienteLogado.proximasConsultas.push(novaConsulta);
-
-            const cpfLimpo = pacienteLogado.cpf.replace(/\D/g, "");
-            if (window.dadosPacientes?.[cpfLimpo]) {
-                window.dadosPacientes[cpfLimpo] = pacienteLogado;
-                localStorage.setItem('dadosPacientesStorage', JSON.stringify(window.dadosPacientes));
-            }
-            
-            renderProximasConsultas(pacienteLogado, proximasConsultasListElement, proximasConsultasPlaceholderElement);
+            renderProximasConsultas(pacienteLogadoObjeto, proximasConsultasListElement, proximasConsultasPlaceholderElement);
 
             if (agendamentoStatus) {
                 agendamentoStatus.textContent = 'Consulta agendada com sucesso!';
                 agendamentoStatus.className = 'form-status-message success';
             }
-            formAgendarConsulta.reset();
+
             setTimeout(() => {
-                if (modalAgendarConsulta) {
-                    if (typeof modalAgendarConsulta.close === "function") {
-                        modalAgendarConsulta.close();
-                    } else {
-                        modalAgendarConsulta.classList.remove('active');
-                        modalAgendarConsulta.setAttribute('aria-hidden', 'true');
-                    }
+                if (typeof modalAgendarConsulta.close === "function") {
+                    modalAgendarConsulta.close();
+                } else {
+                    modalAgendarConsulta.classList.remove('active');
+                    modalAgendarConsulta.setAttribute('aria-hidden', 'true');
+                    closeModal();
                 }
-                if (agendamentoStatus) agendamentoStatus.textContent = '';
-            }, 2000);
+            }, 1500);
         });
     }
 }
 
-function setupConsultasDelegation(pacienteLogado, proximasConsultasList, proximasConsultasPlaceholder, historicoConsultasList) {
+function setupConsultasDelegation(pacienteLogadoObjeto, proximasConsultasList, proximasConsultasPlaceholder, historicoConsultasList) {
     if (proximasConsultasList) {
         proximasConsultasList.addEventListener('click', function (event) {
             if (event.target.classList.contains('cancelar-consulta-btn')) {
                 event.preventDefault();
-                const consultaId = event.target.dataset.consultaId;
+                const consultaId = event.target.dataset.consultaId; // ID único da consulta
                 if (confirm('Tem certeza que deseja cancelar esta consulta?')) {
-                    pacienteLogado.proximasConsultas = pacienteLogado.proximasConsultas.filter(
+                    const pacienteAtualizado = JSON.parse(JSON.stringify(pacienteLogadoObjeto));
+                    pacienteAtualizado.proximasConsultas = pacienteAtualizado.proximasConsultas.filter(
+                        // Garanta que a lógica de identificação da consulta seja robusta
                         c => `${c.dataHora}-${c.medico.replace(/\s+/g, '')}` !== consultaId
                     );
-                    const cpfLimpo = pacienteLogado.cpf.replace(/\D/g, "");
-                    if (window.dadosPacientes?.[cpfLimpo]) {
-                        window.dadosPacientes[cpfLimpo] = pacienteLogado;
-                        localStorage.setItem('dadosPacientesStorage', JSON.stringify(window.dadosPacientes));
+                    
+                    if (typeof atualizarDadosPacienteLogado === "function") {
+                        atualizarDadosPacienteLogado(pacienteAtualizado);
+                        Object.assign(pacienteLogadoObjeto, pacienteAtualizado);
                     }
-                    // Re-renderizar a lista de próximas consultas para refletir a remoção e o estado do placeholder
-                    renderProximasConsultas(pacienteLogado, proximasConsultasList, proximasConsultasPlaceholder);
+                    
+                    renderProximasConsultas(pacienteLogadoObjeto, proximasConsultasList, proximasConsultasPlaceholder);
                     alert('Consulta cancelada com sucesso.');
                 }
             } else if (event.target.classList.contains('ver-detalhes-btn')) {
                 event.preventDefault();
-                alert("Funcionalidade 'Ver Detalhes' ainda não implementada.");
+                alert("Funcionalidade 'Ver Detalhes' da consulta ainda não implementada.");
             }
         });
     }
-    if (historicoConsultasList) {
+
+    if (historicoConsultasList) { // Certifique-se que este elemento existe
         historicoConsultasList.addEventListener('click', function (event) {
             if (event.target.classList.contains('ver-resumo-btn')) {
                 event.preventDefault();
-                alert("Funcionalidade 'Ver Resumo' do histórico ainda não implementada.");
+                alert("Funcionalidade 'Ver Resumo' do histórico de consultas ainda não implementada.");
             }
         });
     }
 }
 
+
 function formatarDataHora(dateTimeString) {
     if (!dateTimeString) return '';
-    const date = new Date(dateTimeString);
-    const dia = String(date.getDate()).padStart(2, '0');
-    const mes = String(date.getMonth() + 1).padStart(2, '0');
-    const ano = date.getFullYear();
-    const horas = String(date.getHours()).padStart(2, '0');
-    const minutos = String(date.getMinutes()).padStart(2, '0');
-    return `${dia}/${mes}/${ano} às ${horas}:${minutos}`;
+    try {
+        const date = new Date(dateTimeString);
+        if (isNaN(date)) return 'Data inválida'; // Verifica se a data é válida
+
+        const dia = String(date.getDate()).padStart(2, '0');
+        const mes = String(date.getMonth() + 1).padStart(2, '0'); // Mês é 0-indexado
+        const ano = date.getFullYear();
+        const horas = String(date.getHours()).padStart(2, '0');
+        const minutos = String(date.getMinutes()).padStart(2, '0');
+        return `${dia}/${mes}/${ano} às ${horas}:${minutos}`;
+    } catch (e) {
+        console.error("Erro ao formatar data:", e);
+        return "Data inválida";
+    }
 }

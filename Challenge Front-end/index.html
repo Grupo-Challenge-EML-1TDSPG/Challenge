@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SimplifyHC - Simplificando o acesso à saúde</title>
+    <link rel="shortcut icon" href="./assets/img/icons/icone-site.ico" type="image/x-icon">
     <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/guia-interativo.css">
     <script src="./assets/js/script.js" defer></script>
+    <script src="./assets/js/guia-interativo.js" defer></script>
 </head>
 <body>
 
@@ -28,20 +31,28 @@
                     <li><a href="./assets/paginas/integrantes.html">Integrantes</a></li>
                     <li><a href="./assets/paginas/faq.html">FAQ</a></li>
                     <li><a href="./assets/paginas/contato.html">Contato</a></li>
-                    <li class="nav-item-login"><a href="./assets/paginas/cadastro-login.html" class="btn-nav-login">Entrar</a></li>
+                    <li class="nav-item-login"><a href="./assets/paginas/area-paciente/meu-perfil.html" class="btn-nav-login">Entrar</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
     <main>
-        <section id="hero">
+        <section id="hero" 
+                 data-guide-step="1" 
+                 data-guide-title="Bem-vindo ao SimplifyHC!" 
+                 data-guide-text="Esta é a nossa seção principal, onde você encontra um resumo do nosso propósito e botões de acesso rápido."
+                 data-guide-arrow="down">
             <div class="container hero-content">
                 <div class="hero-text">
                     <h1>Simplificando o acesso à saúde</h1>
                     <p>O SimplifyHC torna mais fácil o acesso aos serviços do Hospital das Clínicas para todos os pacientes, especialmente para os idosos.</p>
-                    <div class="hero-buttons">
-                        <a href="./assets/paginas/cadastro-login.html" class="btn btn-primary">Acesse sua área de paciente</a>
+                    <div class="hero-buttons" 
+                         data-guide-step="2" 
+                         data-guide-title="Ações Rápidas" 
+                         data-guide-text="Use estes botões para acessar sua área ou conhecer nossas unidades."
+                         data-guide-arrow="up">
+                        <a href="./assets/paginas/area-paciente/meu-perfil.html" class="btn btn-primary">Acesse sua área de paciente</a>
                         <a href="./assets/paginas/hospitais.html#lista-unidades" class="btn btn-secondary">Conheça nossas unidades</a>
                     </div>
                 </div>
@@ -75,7 +86,7 @@
             </div>
         </section>
 
-        <section id="interactive-guide">
+        <section id="guide-interactive-section">
             <div class="container guide-content">
                 <div class="guide-image">
                     <img src="./assets/img/imagem-index/medico.png" alt="Guia interativo">
@@ -171,9 +182,7 @@
     </footer>
 
     <div class="floating-buttons">
-        <a href="#" class="floating-btn accessibility-btn" aria-label="Acessibilidade">♿</a>
-        <a href="#" class="floating-btn chat-btn" aria-label="Chat">💬</a>
+        <a href="#" class="floating-btn accessibility-btn" id="toggleGuideFloatingButton" role="button" aria-label="Guia Interativo">♿</a>
     </div>
-
 </body>
 </html>
